@@ -1,0 +1,34 @@
+{
+  "name": "adventuring",
+  "version": "1.0.0",
+  "description": "Let's see Point&Click adventures in browsers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Narigo/adventuring.git"
+  },
+  "keywords": [
+    "point",
+    "and",
+    "click",
+    "adventure"
+  ],
+  "author": "",
+  "license": "ASL 2.0",
+  "bugs": {
+    "url": "https://github.com/Narigo/adventuring/issues"
+  },
+  "homepage": "https://github.com/Narigo/adventuring",
+  "devDependencies": {
+    "browserify": "^7.0.3",
+    "jasmine": "^2.1.1",
+    "jasmine-core": "^2.1.3",
+    "karma": "^0.12.28",
+    "karma-browserify": "^1.0.1",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.2"
+  }
+}
