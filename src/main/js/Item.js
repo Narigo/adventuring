@@ -1,7 +1,12 @@
-function Item(id) {
+function Item(id, $element) {
   this.id = id;
+  this.$element = $element;
   this.handlers = {};
 }
+
+Item.prototype.highlight = function () {
+  this.$element.classList.add('highlight');
+};
 
 Item.prototype.on = function (event, func) {
   this.handlers[event] = func;
@@ -14,7 +19,7 @@ Item.prototype.click = function () {
   }
 };
 
-Item.prototype.use = function(other) {
+Item.prototype.use = function (other) {
   var useFn = getUse(this, other);
   if (!useFn) {
     useFn = getUse(other, this);

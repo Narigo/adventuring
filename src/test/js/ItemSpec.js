@@ -34,4 +34,12 @@ describe('An item', function () {
     expect(paper.use(pen)).toEqual(text);
     expect(pen.use(paper)).toEqual(text);
   });
+
+  it('should be possible to highlight items', function() {
+    var $element = document.createElement('div');
+    var something = new Item('something', $element);
+
+    something.highlight();
+    expect($element.classList.contains('highlight')).toBe(true);
+  })
 });
