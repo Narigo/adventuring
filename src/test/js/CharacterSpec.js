@@ -13,7 +13,7 @@ describe('A character', function() {
     var peter = new Character('peter1', 'Peter');
 
     expect(function() {
-      scene.talkTo(peter)
+      scene.talkTo(peter);
     }).not.toThrow();
   });
 
