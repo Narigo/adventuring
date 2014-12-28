@@ -17,4 +17,22 @@ describe('A character', function() {
     }).not.toThrow();
   });
 
+  it('should be easy to talk', function(done) {
+    var scene = new Scene();
+    var peter = new Character('peter1', 'Peter');
+
+    var conversation = scene.talkTo(peter);
+    conversation.listen(function (conv) {
+      expect(conv.text).toEqual("Hi there.");
+      expect(conv.replies.length).toEqual(3);
+    }).reply(1).listen(function (conv) {
+      expect(conv.text).toEqual("Fine, thanks, you?");
+      expect(conv.replies.length).toEqual(2);
+    }).reply(2).listen(function (conv) {
+      expect(conv.text).toEqual("Okay, bye.");
+      expect(conv.replies.length).toEqual(0);
+      done();
+    });
+  });
+
 });
