@@ -8,31 +8,14 @@ describe('A character', function() {
     expect(peter.name).toEqual(name);
   });
 
-  it('should be possible to talk', function() {
+  it('should be possible to talk to', function() {
     var scene = new Scene();
     var peter = new Character('peter1', 'Peter');
+    var Conversation = require('../../main/js/Conversation.js');
 
     expect(function() {
       scene.talkTo(peter);
     }).not.toThrow();
-  });
-
-  it('should be easy to talk', function(done) {
-    var scene = new Scene();
-    var peter = new Character('peter1', 'Peter');
-
-    var conversation = scene.talkTo(peter);
-    conversation.listen(function (conv) {
-      expect(conv.text).toEqual("Hi there.");
-      expect(conv.replies.length).toEqual(3);
-    }).reply(1).listen(function (conv) {
-      expect(conv.text).toEqual("Fine, thanks, you?");
-      expect(conv.replies.length).toEqual(2);
-    }).reply(2).listen(function (conv) {
-      expect(conv.text).toEqual("Okay, bye.");
-      expect(conv.replies.length).toEqual(0);
-      done();
-    });
   });
 
 });

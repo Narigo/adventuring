@@ -8,6 +8,7 @@ Scene.prototype.addItem = function (item) {
 };
 
 Scene.prototype.talkTo = function (char) {
+  return char.conversation();
 };
 
 module.exports = Scene;
