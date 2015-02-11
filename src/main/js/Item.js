@@ -6,6 +6,8 @@ function Item(id, $element) {
   this.id = id;
   this.$element = $element;
   this.handlers = {};
+  var that = this;
+  adventure.items[id] = that;
 }
 
 Item.prototype.highlight = function () {
@@ -13,31 +15,19 @@ Item.prototype.highlight = function () {
 };
 
 Item.prototype.on = function (event, funcOrObject) {
-  var newItem, thatItem, someItem, useFn;
+  var otherItem, otherItemId;
   if (event === 'use') {
-    for (newItem in funcOrObject) {
-      if (funcOrObject.hasOwnProperty(newItem)) {
-        thatItem = funcOrObject[newItem];
-        for (someItem in adventure.items) {
-          if (adventure.items.hasOwnProperty(someItem)) {
-            useFn = getUse(thatItem, adventure.items[someItem]);
-            if (useFn) {
-              throw new Error('no second use allowed on these items!');
-            }
-          }
+    for (otherItemId in funcOrObject) {
+      if (funcOrObject.hasOwnProperty(otherItemId)) {
+        otherItem = adventure.items[otherItemId];
+        var useFn = getUse(this, otherItem) || getUse(otherItem, this);
+        if (!!useFn) {
+          throw new Error('no second use allowed on item ' + newItem);
         }
-        adventure.items[thatItem.id] = thatItem;
       }
     }
   }
   this.handlers[event] = funcOrObject;
-
-  function getUse(a, b) {
-    var uses = a.handlers['use'];
-    if (uses) {
-      return uses[b.id];
-    }
-  }
 };
 
 Item.prototype.click = function () {
@@ -49,21 +39,26 @@ Item.prototype.click = function () {
 
 Item.prototype.use = function (other) {
   var useFn = getUse(this, other);
-  if (!useFn) {
-    useFn = getUse(other, this);
-    if (!useFn) {
-      return;
-    }
+  if (typeof useFn === 'undefined') {
+    return;
   }
   return useFn();
+};
 
-  function getUse(a, b) {
-    var uses = a.handlers['use'];
+function getUse(a, b) {
+  var useFn;
+  var uses = a.handlers['use'];
+  if (uses) {
+    useFn = uses[b.id];
+  }
+  if (typeof useFn === 'undefined') {
+    uses = b.handlers['use'];
     if (uses) {
-      return uses[b.id];
+      useFn = uses[a.id];
     }
   }
-};
+  return useFn;
+}
 
 function equals(a, b) {
   if (a instanceof Item && b instanceof Item) {
