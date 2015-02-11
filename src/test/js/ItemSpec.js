@@ -35,7 +35,37 @@ describe('An item', function () {
     expect(pen.use(paper)).toEqual(text);
   });
 
-  it('should be possible to highlight items', function() {
+  it('should not be possible to have different usages', function () {
+    var paper = new Item('paper');
+    var pen = new Item('pen');
+    var text = new Item('text');
+    paper.on('use', {
+      pen : function () {
+        return text;
+      }
+    });
+    expect(function () {
+      pen.on('use', {
+        paper : function () {
+          return pen;
+        }
+      });
+    }).toThrow();
+  });
+
+  it('should be possible to return multiple items on usage', function () {
+    var paper = new Item('paper');
+    var pen = new Item('pen');
+    var text = new Item('text');
+    paper.on('use', {
+      pen : function () {
+        return [pen, text];
+      }
+    });
+    expect(paper.use(pen)).toEqual([pen, text]);
+  });
+
+  it('should be possible to highlight items', function () {
     var $element = document.createElement('div');
     var something = new Item('something', $element);
 
