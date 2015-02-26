@@ -1,6 +1,7 @@
 describe('An item', function () {
   var items = require('../../main/js/Item.js');
   var Item = items.Item;
+
   beforeEach(function () {
     jasmine.addCustomEqualityTester(items.equality);
   });
@@ -35,7 +36,7 @@ describe('An item', function () {
     expect(pen.use(paper)).toEqual(text);
   });
 
-  it('should not be possible to have different usages', function () {
+  it('should not be possible to have different usages with the same items', function () {
     var paper = new Item('paper');
     var pen = new Item('pen');
     var text = new Item('text');
@@ -71,5 +72,6 @@ describe('An item', function () {
 
     something.highlight();
     expect($element.classList.contains('highlight')).toBe(true);
-  })
+  });
+
 });
