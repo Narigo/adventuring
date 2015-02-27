@@ -11,4 +11,16 @@ Scene.prototype.talkTo = function (char) {
   return char.conversation();
 };
 
+Scene.prototype.highlightAllItems = function () {
+  this.items.forEach(function(item) {
+    item.highlight();
+  });
+};
+
+Scene.prototype.stopHighlightAllItems = function () {
+  this.items.forEach(function(item) {
+    item.stopHighlight();
+  });
+};
+
 module.exports = Scene;

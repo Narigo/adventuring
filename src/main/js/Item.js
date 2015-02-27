@@ -14,6 +14,10 @@ Item.prototype.highlight = function () {
   this.$element.classList.add('highlight');
 };
 
+Item.prototype.stopHighlight = function () {
+  this.$element.classList.remove('highlight');
+};
+
 Item.prototype.on = function (event, funcOrObject) {
   var otherItem, otherItemId;
   if (event === 'use') {

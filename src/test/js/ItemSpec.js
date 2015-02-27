@@ -74,4 +74,13 @@ describe('An item', function () {
     expect($element.classList.contains('highlight')).toBe(true);
   });
 
+  it('should be possible to stop highlighting items', function () {
+    var $element = document.createElement('div');
+    var something = new Item('something', $element);
+
+    something.highlight();
+    something.stopHighlight();
+    expect($element.classList.contains('highlight')).toBe(false);
+  });
+
 });
