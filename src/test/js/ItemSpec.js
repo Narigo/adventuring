@@ -9,6 +9,7 @@ describe('An item', function () {
   it('should have a working equality method', function () {
     var item1 = new Item('something');
     var item2 = new Item('something');
+
     expect(item1).toEqual(item2);
   });
 
@@ -19,6 +20,7 @@ describe('An item', function () {
       return clickText;
     });
     var ret = myItem.click();
+
     expect(ret).toEqual(clickText);
   });
 
@@ -45,6 +47,7 @@ describe('An item', function () {
         return text;
       }
     });
+
     expect(function () {
       pen.on('use', {
         paper : function () {
@@ -63,6 +66,7 @@ describe('An item', function () {
         return [pen, text];
       }
     });
+
     expect(paper.use(pen)).toEqual([pen, text]);
   });
 
@@ -71,6 +75,7 @@ describe('An item', function () {
     var something = new Item('something', $element);
 
     something.highlight();
+
     expect($element.classList.contains('highlight')).toBe(true);
   });
 
@@ -80,6 +85,7 @@ describe('An item', function () {
 
     something.highlight();
     something.stopHighlight();
+
     expect($element.classList.contains('highlight')).toBe(false);
   });
 
