@@ -2,52 +2,56 @@ var adventure = {
   items : {}
 };
 
-function Item(id, $element) {
-  this.id = id;
-  this.$element = $element;
-  this.handlers = {};
-  var that = this;
-  adventure.items[id] = that;
-}
+export default class Item {
 
-Item.prototype.highlight = function () {
-  this.$element.classList.add('highlight');
-};
+  constructor(id, $element) {
+    this.id = id;
+    this.$element = $element;
+    this.handlers = {};
 
-Item.prototype.stopHighlight = function () {
-  this.$element.classList.remove('highlight');
-};
+    adventure.items[id] = this;
+  }
 
-Item.prototype.on = function (event, funcOrObject) {
-  var otherItem, otherItemId;
-  if (event === 'use') {
-    for (otherItemId in funcOrObject) {
-      if (funcOrObject.hasOwnProperty(otherItemId)) {
-        otherItem = adventure.items[otherItemId];
-        var useFn = getUse(this, otherItem) || getUse(otherItem, this);
-        if (!!useFn) {
-          throw new Error('no second use allowed on item ' + newItem);
+  highlight() {
+    this.$element.classList.add('highlight');
+  }
+
+  stopHighlight() {
+    this.$element.classList.remove('highlight');
+  }
+
+  on(event, funcOrObject) {
+    var otherItem, otherItemId;
+    if (event === 'use') {
+      for (otherItemId in funcOrObject) {
+        if (funcOrObject.hasOwnProperty(otherItemId)) {
+          otherItem = adventure.items[otherItemId];
+          var useFn = getUse(this, otherItem) || getUse(otherItem, this);
+          if (!!useFn) {
+            throw new Error('no second use allowed on item ' + newItem);
+          }
         }
       }
     }
+    this.handlers[event] = funcOrObject;
   }
-  this.handlers[event] = funcOrObject;
-};
 
-Item.prototype.click = function () {
-  var clickHandler = this.handlers['click'];
-  if (clickHandler) {
-    return clickHandler();
+  click() {
+    var clickHandler = this.handlers['click'];
+    if (clickHandler) {
+      return clickHandler();
+    }
   }
-};
 
-Item.prototype.use = function (other) {
-  var useFn = getUse(this, other);
-  if (typeof useFn === 'undefined') {
-    return;
+  use(other) {
+    var useFn = getUse(this, other);
+    if (typeof useFn === 'undefined') {
+      return;
+    }
+    return useFn();
   }
-  return useFn();
-};
+
+}
 
 function getUse(a, b) {
   var useFn;
@@ -70,7 +74,4 @@ function equals(a, b) {
   }
 }
 
-module.exports = {
-  Item : Item,
-  equality : equals
-};
+export { equals as equality };

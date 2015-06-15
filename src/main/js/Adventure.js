@@ -1,18 +1,19 @@
-function Adventure(name) {
-  var that = this;
-  that.name = name;
+export default class Adventure {
 
-  return {
-    name : function () {
-      return that.name;
-    },
-    setScene : function (scene) {
-      that.scene = scene;
-    },
-    currentBackground : function () {
-      return that.scene.background;
-    }
-  };
+  constructor(name) {
+    this._name = name;
+  }
+
+  name() {
+    return this._name;
+  }
+
+  setScene(scene) {
+    this.scene = scene;
+  }
+
+  currentBackground() {
+    return this.scene.background;
+  }
+
 }
-
-module.exports = Adventure;

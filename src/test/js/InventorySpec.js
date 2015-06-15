@@ -1,18 +1,18 @@
-describe('Inventory', function () {
+import Item from '../../main/js/Item';
+import Inventory from '../../main/js/Inventory';
 
-  var Item = require('../../main/js/Item.js').Item;
-  var Inventory = require('../../main/js/Inventory.js');
+describe('Inventory', () => {
 
-  it('should be possible to add items', function () {
+  it('should be possible to add items', () => {
     var inventory = new Inventory();
     var paper = new Item('paper');
 
-    expect(function () {
+    expect(() => {
       inventory.addItem(paper);
     }).not.toThrow();
   });
 
-  it('should be possible to list items', function () {
+  it('should be possible to list items', () => {
     var inventory = new Inventory();
     var paper = new Item('paper');
     var pen = new Item('pen');
@@ -22,7 +22,7 @@ describe('Inventory', function () {
     expect(inventory.list()).toEqual([paper, pen]);
   });
 
-  it('should be possible to remove items', function () {
+  it('should be possible to remove items', () => {
     var inventory = new Inventory();
     var paper = new Item('paper');
     var pen = new Item('pen');
@@ -34,7 +34,7 @@ describe('Inventory', function () {
     expect(inventory.list()).toEqual([pen]);
   });
 
-  it('should be possible to remove an item that is equal to an existing one', function () {
+  it('should be possible to remove an item that is equal to an existing one', () => {
     var inventory = new Inventory();
     var paper = new Item('paper');
     var pen1 = new Item('pen');

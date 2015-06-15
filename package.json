@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Narigo/adventuring",
   "devDependencies": {
+    "babelify": "^6.1.2",
     "browserify": "^7.0.3",
     "jasmine": "^2.1.1",
     "jasmine-core": "^2.1.3",

@@ -1,16 +1,17 @@
-describe('A scene', function () {
-  var Scene = require('../../main/js/Scene.js');
-  var Item = require('../../main/js/Item.js').Item;
+import Scene from '../../main/js/Scene';
+import Item from '../../main/js/Item';
 
-  it('should be possible to add items to a scene', function () {
+describe('A scene', () => {
+
+  it('should be possible to add items to a scene', () => {
     var myScene = new Scene('background.svg');
     var myItem = new Item();
-    expect(function () {
+    expect(() => {
       myScene.addItem(myItem);
     }).not.toThrow();
   });
 
-  it('should be possible to list added items of a scene', function () {
+  it('should be possible to list added items of a scene', () => {
     var myScene = new Scene('background.svg');
     var something = new Item();
     var someOtherThing = new Item();
@@ -20,7 +21,7 @@ describe('A scene', function () {
     expect(myScene.items).toContain(someOtherThing);
   });
 
-  it('should be possible to highlight all items of a scene', function () {
+  it('should be possible to highlight all items of a scene', () => {
     var myScene = new Scene('background.svg');
     var $element1 = document.createElement('div');
     var $element2 = document.createElement('div');
@@ -35,7 +36,7 @@ describe('A scene', function () {
     expect($element2.classList.contains('highlight')).toBe(true);
   });
 
-  it('should be possible to stop highlighting all items of a scene', function () {
+  it('should be possible to stop highlighting all items of a scene', () => {
     var myScene = new Scene('background.svg');
     var $element1 = document.createElement('div');
     var $element2 = document.createElement('div');

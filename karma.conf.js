@@ -30,6 +30,10 @@ module.exports = function(config) {
       'src/test/**/*.js': [ 'browserify' ]
     },
 
+    browserify: {
+      debug: true,
+      transform: [ 'babelify' ]
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'

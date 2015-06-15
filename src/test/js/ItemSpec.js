@@ -1,22 +1,23 @@
-describe('An item', function () {
-  var items = require('../../main/js/Item.js');
-  var Item = items.Item;
+import Item from '../../main/js/Item';
+import {equality} from '../../main/js/Item';
 
-  beforeEach(function () {
-    jasmine.addCustomEqualityTester(items.equality);
+describe('An item', () => {
+
+  beforeEach(() => {
+    jasmine.addCustomEqualityTester(equality);
   });
 
-  it('should have a working equality method', function () {
+  it('should have a working equality method', () => {
     var item1 = new Item('something');
     var item2 = new Item('something');
 
     expect(item1).toEqual(item2);
   });
 
-  it('should have custom click handlers', function () {
+  it('should have custom click handlers', () => {
     var myItem = new Item('something');
     var clickText = 'click something';
-    myItem.on('click', function () {
+    myItem.on('click', () => {
       return clickText;
     });
     var ret = myItem.click();
@@ -24,12 +25,12 @@ describe('An item', function () {
     expect(ret).toEqual(clickText);
   });
 
-  it('may be used with other items in both directions', function () {
+  it('may be used with other items in both directions', () => {
     var paper = new Item('paper');
     var pen = new Item('pen');
     var text = new Item('text');
     paper.on('use', {
-      pen : function () {
+      pen : () => {
         return text;
       }
     });
@@ -38,31 +39,31 @@ describe('An item', function () {
     expect(pen.use(paper)).toEqual(text);
   });
 
-  it('should not be possible to have different usages with the same items', function () {
+  it('should not be possible to have different usages with the same items', () => {
     var paper = new Item('paper');
     var pen = new Item('pen');
     var text = new Item('text');
     paper.on('use', {
-      pen : function () {
+      pen : () => {
         return text;
       }
     });
 
-    expect(function () {
+    expect(() => {
       pen.on('use', {
-        paper : function () {
+        paper : () => {
           return pen;
         }
       });
     }).toThrow();
   });
 
-  it('should be possible to return multiple items on usage', function () {
+  it('should be possible to return multiple items on usage', () => {
     var paper = new Item('paper');
     var pen = new Item('pen');
     var text = new Item('text');
     paper.on('use', {
-      pen : function () {
+      pen : () => {
         return [pen, text];
       }
     });
@@ -70,7 +71,7 @@ describe('An item', function () {
     expect(paper.use(pen)).toEqual([pen, text]);
   });
 
-  it('should be possible to highlight items', function () {
+  it('should be possible to highlight items', () => {
     var $element = document.createElement('div');
     var something = new Item('something', $element);
 
@@ -79,7 +80,7 @@ describe('An item', function () {
     expect($element.classList.contains('highlight')).toBe(true);
   });
 
-  it('should be possible to stop highlighting items', function () {
+  it('should be possible to stop highlighting items', () => {
     var $element = document.createElement('div');
     var something = new Item('something', $element);
 

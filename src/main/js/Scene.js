@@ -1,22 +1,24 @@
-function Scene(background) {
-  this.background = background;
-  this.items = [];
+export default class Scene {
+
+  constructor(background) {
+    this.background = background;
+    this.items = [];
+  }
+
+  addItem(item) {
+    this.items.push(item);
+  }
+
+  highlightAllItems() {
+    this.items.forEach((item) => {
+      item.highlight();
+    });
+  }
+
+  stopHighlightAllItems() {
+    this.items.forEach((item) => {
+      item.stopHighlight();
+    });
+  }
+
 }
-
-Scene.prototype.addItem = function (item) {
-  this.items.push(item);
-};
-
-Scene.prototype.highlightAllItems = function () {
-  this.items.forEach(function(item) {
-    item.highlight();
-  });
-};
-
-Scene.prototype.stopHighlightAllItems = function () {
-  this.items.forEach(function(item) {
-    item.stopHighlight();
-  });
-};
-
-module.exports = Scene;

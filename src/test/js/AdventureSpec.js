@@ -1,21 +1,22 @@
-describe('Adventure', function () {
-  var Adventure = require('../../main/js/Adventure.js');
+import Adventure from '../../main/js/Adventure';
+import Scene from '../../main/js/Scene';
+
+describe('Adventure', () => {
   var theName = 'My little Test-Adventure';
   var myAdventure = new Adventure(theName);
-  var Scene = require('../../main/js/Scene.js');
 
-  it('should have a name', function () {
+  it('should have a name', () => {
     expect(myAdventure.name()).toBe(theName);
   });
 
-  it('should be able to show a scene', function () {
+  it('should be able to show a scene', () => {
     var scene = new Scene('background.svg');
 
     myAdventure.setScene(scene);
     expect(myAdventure.currentBackground()).toBe(scene.background);
   });
 
-  it('should be able to show a different scene', function () {
+  it('should be able to show a different scene', () => {
     var scene1 = new Scene('background.svg');
     var scene2 = new Scene('background2.svg');
 

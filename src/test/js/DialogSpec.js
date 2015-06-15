@@ -1,7 +1,7 @@
-var Dialog = require('../../main/js/Dialog');
-var Character = require('../../main/js/Character');
+import Character from '../../main/js/Character';
+import Dialog from '../../main/js/Dialog';
 
-describe('Dialog', function () {
+describe('Dialog', () => {
 
   var me = new Character('me', {name : 'Me'});
   var char = new Character('peter1', {name : 'Peter'});
@@ -14,24 +14,24 @@ describe('Dialog', function () {
     ]
   });
 
-  it('needs to have a text defined', function () {
-    expect(function () {
+  it('needs to have a text defined', () => {
+    expect(() => {
       new Dialog()
     }).toThrow();
   });
 
-  it('can be a character saying it', function () {
-    expect(function () {
+  it('can be a character saying it', () => {
+    expect(() => {
       var char = new Character('peter1', {name : 'Peter'});
       new Dialog({char : char, text : 'Hello.'});
     }).not.toThrow();
   });
 
-  it('should be possible to create a simple dialog for a character', function (done) {
+  it('should be possible to create a simple dialog for a character', (done) => {
     var char = new Character('peter1', {name : 'Peter'});
     var dialog = new Dialog({char : char, text : 'Hello.'});
 
-    dialog.listen(function (conv) {
+    dialog.listen((conv) => {
       expect(conv.char).toEqual(char);
       expect(conv.text).toEqual('Hello.');
       expect(conv.replies.length).toEqual(0);
@@ -39,12 +39,12 @@ describe('Dialog', function () {
     });
   });
 
-  it('may be possible to have replies to a dialog', function (done) {
-    dialogWithReplies.listen(function (conv) {
+  it('may be possible to have replies to a dialog', (done) => {
+    dialogWithReplies.listen((conv) => {
       expect(conv.char).toEqual(char);
       expect(conv.text).toEqual('Hello.');
       expect(conv.replies.length).toEqual(2);
-    }).reply(0).listen(function (conv) {
+    }).reply(0).listen((conv) => {
       expect(conv.char).toEqual(me);
       expect(conv.text).toEqual('Bye.');
       expect(conv.replies.length).toEqual(0);
@@ -52,9 +52,9 @@ describe('Dialog', function () {
     });
   });
 
-  it('should not be possible to reply with a wrong index', function () {
-    expect(function () {
-      dialogWithReplies.listen(function (conv) {
+  it('should not be possible to reply with a wrong index', () => {
+    expect(() => {
+      dialogWithReplies.listen((conv) => {
         expect(conv.replies.length).toEqual(2);
       }).reply(3)
     }).toThrow();
