@@ -4,7 +4,8 @@
   "description": "Let's see Point&Click adventures in browsers",
   "main": "index.js",
   "scripts": {
-    "test": "karma start --single-run"
+    "test": "karma start --single-run",
+    "test:watch": "karma start"
   },
   "repository": {
     "type": "git",
