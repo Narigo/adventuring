@@ -1,12 +1,11 @@
-var Conversation = require('./Conversation.js');
-
-function Character(id, name) {
+function Character(id, options) {
   this.id = id;
-  this.name = name;
+  this.name = options.name;
+  this.dialogTree = options.conversation;
 }
 
 Character.prototype.conversation = function() {
-  return new Conversation();
+  return this.dialogTree;
 };
 
 module.exports = Character;
