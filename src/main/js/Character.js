@@ -1,8 +1,11 @@
-export default class Character {
+import Item from './Item'
 
-  constructor(id, options) {
-    this.id = id;
+export default class Character extends Item {
+
+  constructor(id, $element, options) {
+    super(id, $element);
     this.name = options.name;
+    this.color = options.color || '#ffffff';
     this.dialogTree = options.conversation;
   }
 
