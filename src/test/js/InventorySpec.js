@@ -47,4 +47,16 @@ describe('Inventory', () => {
     expect(inventory.list()).toEqual([paper]);
   });
 
+  it('should fire an event if an item gets added', (done) => {
+    var inventory = new Inventory();
+    var pen = new Item('pen');
+
+    inventory.on('add', (item) => {
+      expect(item).toEqual(pen);
+      expect(inventory.list()).toEqual([pen]);
+      done();
+    });
+
+    inventory.addItem(pen);
+  });
 });
