@@ -3,11 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Buying stuff example</title>
-  <link rel="stylesheet" href="main.css"/>
-  <script src="js/main.js"></script>
+  <link rel="stylesheet" href="style/main.css"/>
 </head>
 <body>
-<svg id="outside-shop"></svg>
-<svg id="inside-shop"></svg>
+
+<section id="inventory" class="inventory"></section>
+
+<section id="outside-shop" class="scene active">
+  <img class="background" src="img/house.svg" alt="Shop"/>
+  <img class="item" id="money" src="img/money.svg" alt="Money"/>
+</section>
+<section id="inside-shop" class="scene">
+  <img class="background" src="img/table.svg" alt="table"/>
+</section>
+
+<script src="js/main.js"></script>
 </body>
 </html>

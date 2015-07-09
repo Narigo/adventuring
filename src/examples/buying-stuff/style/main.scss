@@ -1,0 +1,24 @@
+.scene {
+  display: none;
+  width: 500px;
+  height: 500px;
+
+  &.active {
+    display: block;
+  }
+
+  .background {
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
+.inventory {
+  background-color: #f00;
+  width: 100px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}

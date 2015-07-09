@@ -18,7 +18,7 @@ gulp.task('default', ['build:examples']);
 var outDir = 'out';
 
 function copyAssets() {
-  return gulp.src('src/examples/**/*.html')
+  return gulp.src(['src/examples/**/*', '!src/examples/**/*.scss', '!src/examples/**/*.js'])
     .pipe(gulp.dest(outDir));
 }
 
