@@ -7,7 +7,7 @@ class Inventory extends EventEmitter {
     this.items = [];
   }
 
-  addItem(item) {
+  add(item) {
     this.items.push(item);
     this.emit('add', item);
   }

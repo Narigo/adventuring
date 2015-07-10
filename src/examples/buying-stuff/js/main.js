@@ -21,7 +21,7 @@ let outsideShop = (function () {
   let moneyItem = new Item('money', $money);
   $money.addEventListener('click', () => {
     console.log('clicked on scene');
-    inventory.addItem(moneyItem);
+    inventory.add(moneyItem);
   });
 
   return scene;

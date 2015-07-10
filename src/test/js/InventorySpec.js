@@ -8,7 +8,7 @@ describe('Inventory', () => {
     var paper = new Item('paper');
 
     expect(() => {
-      inventory.addItem(paper);
+      inventory.add(paper);
     }).not.toThrow();
   });
 
@@ -17,8 +17,8 @@ describe('Inventory', () => {
     var paper = new Item('paper');
     var pen = new Item('pen');
 
-    inventory.addItem(paper);
-    inventory.addItem(pen);
+    inventory.add(paper);
+    inventory.add(pen);
     expect(inventory.list()).toEqual([paper, pen]);
   });
 
@@ -27,8 +27,8 @@ describe('Inventory', () => {
     var paper = new Item('paper');
     var pen = new Item('pen');
 
-    inventory.addItem(paper);
-    inventory.addItem(pen);
+    inventory.add(paper);
+    inventory.add(pen);
     inventory.remove(paper);
 
     expect(inventory.list()).toEqual([pen]);
@@ -40,8 +40,8 @@ describe('Inventory', () => {
     var pen1 = new Item('pen');
     var pen2 = new Item('pen');
 
-    inventory.addItem(paper);
-    inventory.addItem(pen1);
+    inventory.add(paper);
+    inventory.add(pen1);
     inventory.remove(pen2);
 
     expect(inventory.list()).toEqual([paper]);
@@ -57,7 +57,7 @@ describe('Inventory', () => {
       done();
     });
 
-    inventory.addItem(pen);
+    inventory.add(pen);
   });
 
   it('should fire an event if an item gets removed', (done) => {
@@ -71,8 +71,8 @@ describe('Inventory', () => {
       done();
     });
 
-    inventory.addItem(paper);
-    inventory.addItem(pen);
+    inventory.add(paper);
+    inventory.add(pen);
     inventory.remove(pen);
 
   });
