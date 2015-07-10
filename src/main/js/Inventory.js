@@ -18,6 +18,7 @@ class Inventory extends EventEmitter {
 
   remove(item) {
     this.items.splice(this.items.indexOf(item), 1);
+    this.emit('remove', item);
   }
 
 }

@@ -59,4 +59,21 @@ describe('Inventory', () => {
 
     inventory.addItem(pen);
   });
+
+  it('should fire an event if an item gets removed', (done) => {
+    var inventory = new Inventory();
+    var paper = new Item('paper');
+    var pen = new Item('pen');
+
+    inventory.on('remove', (item) => {
+      expect(item).toEqual(pen);
+      expect(inventory.list()).toEqual([paper]);
+      done();
+    });
+
+    inventory.addItem(paper);
+    inventory.addItem(pen);
+    inventory.remove(pen);
+
+  });
 });
