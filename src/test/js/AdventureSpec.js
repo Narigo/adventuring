@@ -26,4 +26,21 @@ describe('Adventure', () => {
     expect(myAdventure.currentBackground()).toBe(scene2.background);
   });
 
+  it('should throw an error when trying to change a scene to something different than a Scene', () => {
+    expect(() => {
+      myAdventure.setScene(123);
+    }).toThrow();
+  });
+
+  it('should throw an event when changing scenes', (done) => {
+    var scene1 = new Scene('background.svg');
+
+    myAdventure.on('change-scene', (scene) => {
+      expect(scene).toEqual(scene1);
+      done();
+    });
+
+    myAdventure.setScene(scene1);
+  });
+
 });

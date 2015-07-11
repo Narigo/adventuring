@@ -1,6 +1,10 @@
-export default class Adventure {
+import EventEmitter from 'events';
+import Scene from './Scene.js';
+
+export default class Adventure extends EventEmitter {
 
   constructor(name) {
+    super();
     this._name = name;
   }
 
@@ -9,7 +13,12 @@ export default class Adventure {
   }
 
   setScene(scene) {
+    if (!(scene instanceof Scene)) {
+      throw new Error('Must set to a Scene');
+    }
+
     this.scene = scene;
+    this.emit('change-scene', scene);
   }
 
   currentBackground() {
