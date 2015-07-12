@@ -30,8 +30,8 @@ describe('An item', () => {
     var pen = new Item('pen');
     var text = new Item('text');
     paper.on('use', {
-      pen : () => {
-        return text;
+      pen : {
+        returns : text
       }
     });
 
@@ -44,15 +44,15 @@ describe('An item', () => {
     var pen = new Item('pen');
     var text = new Item('text');
     paper.on('use', {
-      pen : () => {
-        return text;
+      pen : {
+        returns : text
       }
     });
 
     expect(() => {
       pen.on('use', {
-        paper : () => {
-          return pen;
+        paper : {
+          returns : pen
         }
       });
     }).toThrow();
@@ -63,8 +63,8 @@ describe('An item', () => {
     var pen = new Item('pen');
     var text = new Item('text');
     paper.on('use', {
-      pen : () => {
-        return [pen, text];
+      pen : {
+        returns : [pen, text]
       }
     });
 

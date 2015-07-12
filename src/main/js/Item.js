@@ -26,8 +26,8 @@ export default class Item {
       for (otherItemId in funcOrObject) {
         if (funcOrObject.hasOwnProperty(otherItemId)) {
           otherItem = adventure.items[otherItemId];
-          var useFn = getUse(this, otherItem) || getUse(otherItem, this);
-          if (!!useFn) {
+          var useObj = getUse(this, otherItem) || getUse(otherItem, this);
+          if (!!useObj) {
             throw new Error('no second use allowed on item ' + newItem);
           }
         }
@@ -44,11 +44,16 @@ export default class Item {
   }
 
   use(other) {
-    var useFn = getUse(this, other);
-    if (typeof useFn === 'undefined') {
+    var useObj = getUse(this, other);
+    if (typeof useObj === 'undefined') {
       return;
     }
-    return useFn();
+    var ret = useObj.returns;
+    if (typeof ret === 'function') {
+      return ret();
+    } else {
+      return ret;
+    }
   }
 
 }
