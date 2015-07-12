@@ -59,16 +59,47 @@ describe('An item', () => {
   });
 
   it('should be possible to return multiple items on usage', () => {
-    var paper = new Item('paper');
-    var pen = new Item('pen');
-    var text = new Item('text');
-    paper.on('use', {
-      pen : {
-        returns : [pen, text]
+    var map = new Item('map');
+    var scissors = new Item('scissors');
+    var mapPart = new Item('mapPart');
+    var mapPartWithX = new Item('mapPartWithX');
+    map.on('use', {
+      scissors : {
+        returns : [mapPart, mapPartWithX]
       }
     });
 
-    expect(paper.use(pen)).toEqual([pen, text]);
+    expect(map.use(scissors)).toEqual([mapPart, mapPartWithX]);
+  });
+
+  it('should be okay to reuse items', () => {
+    var coin = new Item('coin');
+    var arcade = new Item('arcade');
+    var money = new Item('money');
+    coin.on('use', {
+      arcade : {
+        returns : money
+      }
+    });
+
+    expect(coin.use(arcade)).toEqual(money);
+    expect(coin.use(arcade)).toEqual(money);
+    expect(coin.use(arcade)).toEqual(money);
+  });
+
+  it('should be possible to register a use only once', () => {
+    var coin = new Item('coin');
+    var arcade = new Item('arcade');
+    var plushie = new Item('plushie');
+    coin.on('use', {
+      arcade : {
+        once : true,
+        returns : plushie
+      }
+    });
+
+    expect(coin.use(arcade)).toEqual(plushie);
+    expect(coin.use(arcade)).toBeUndefined();
   });
 
   it('should be possible to highlight items', () => {

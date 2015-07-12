@@ -44,11 +44,22 @@ export default class Item {
   }
 
   use(other) {
-    var useObj = getUse(this, other);
+    let useObj = getUse(this, other);
     if (typeof useObj === 'undefined') {
       return;
     }
-    var ret = useObj.returns;
+    if (useObj.once) {
+      let myHandlers = this.handlers['use'];
+      let otherHandlers = other.handlers['use'];
+
+      if (myHandlers) {
+        delete myHandlers[other.id];
+      }
+      if (otherHandlers) {
+        delete otherHandlers[this.id];
+      }
+    }
+    let ret = useObj.returns;
     if (typeof ret === 'function') {
       return ret();
     } else {
