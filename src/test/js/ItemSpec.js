@@ -8,27 +8,27 @@ describe('An item', () => {
   });
 
   it('should have a working equality method', () => {
-    var item1 = new Item('something');
-    var item2 = new Item('something');
+    let item1 = new Item('something');
+    let item2 = new Item('something');
 
     expect(item1).toEqual(item2);
   });
 
   it('should have custom click handlers', () => {
-    var myItem = new Item('something');
-    var clickText = 'click something';
+    let myItem = new Item('something');
+    let clickText = 'click something';
     myItem.on('click', () => {
       return clickText;
     });
-    var ret = myItem.click();
+    let ret = myItem.click();
 
     expect(ret).toEqual(clickText);
   });
 
   it('may be used with other items in both directions', () => {
-    var paper = new Item('paper');
-    var pen = new Item('pen');
-    var text = new Item('text');
+    let paper = new Item('paper');
+    let pen = new Item('pen');
+    let text = new Item('text');
     paper.on('use', {
       pen : {
         returns : text
@@ -40,9 +40,9 @@ describe('An item', () => {
   });
 
   it('should not be possible to have different usages with the same items', () => {
-    var paper = new Item('paper');
-    var pen = new Item('pen');
-    var text = new Item('text');
+    let paper = new Item('paper');
+    let pen = new Item('pen');
+    let text = new Item('text');
     paper.on('use', {
       pen : {
         returns : text
@@ -59,10 +59,10 @@ describe('An item', () => {
   });
 
   it('should be possible to return multiple items on usage', () => {
-    var map = new Item('map');
-    var scissors = new Item('scissors');
-    var mapPart = new Item('mapPart');
-    var mapPartWithX = new Item('mapPartWithX');
+    let map = new Item('map');
+    let scissors = new Item('scissors');
+    let mapPart = new Item('mapPart');
+    let mapPartWithX = new Item('mapPartWithX');
     map.on('use', {
       scissors : {
         returns : [mapPart, mapPartWithX]
@@ -73,9 +73,9 @@ describe('An item', () => {
   });
 
   it('should be okay to reuse items', () => {
-    var coin = new Item('coin');
-    var arcade = new Item('arcade');
-    var money = new Item('money');
+    let coin = new Item('coin');
+    let arcade = new Item('arcade');
+    let money = new Item('money');
     coin.on('use', {
       arcade : {
         returns : money
@@ -88,9 +88,9 @@ describe('An item', () => {
   });
 
   it('should be possible to register a use only once', () => {
-    var coin = new Item('coin');
-    var arcade = new Item('arcade');
-    var plushie = new Item('plushie');
+    let coin = new Item('coin');
+    let arcade = new Item('arcade');
+    let plushie = new Item('plushie');
     coin.on('use', {
       arcade : {
         once : true,
@@ -103,8 +103,8 @@ describe('An item', () => {
   });
 
   it('should be possible to highlight items', () => {
-    var $element = document.createElement('div');
-    var something = new Item('something', $element);
+    let $element = document.createElement('div');
+    let something = new Item('something', $element);
 
     something.highlight();
 
@@ -112,8 +112,8 @@ describe('An item', () => {
   });
 
   it('should be possible to stop highlighting items', () => {
-    var $element = document.createElement('div');
-    var something = new Item('something', $element);
+    let $element = document.createElement('div');
+    let something = new Item('something', $element);
 
     something.highlight();
     something.stopHighlight();

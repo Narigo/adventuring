@@ -5,17 +5,17 @@ import Character from '../../main/js/Character';
 describe('A scene', () => {
 
   it('should be possible to add items to a scene', () => {
-    var myScene = new Scene('background.svg');
-    var myItem = new Item();
+    let myScene = new Scene('background.svg');
+    let myItem = new Item();
     expect(() => {
       myScene.add(myItem, {x : 50, y : 50});
     }).not.toThrow();
   });
 
   it('should be possible to list added items of a scene', () => {
-    var myScene = new Scene('background.svg');
-    var something = new Item();
-    var someOtherThing = new Item();
+    let myScene = new Scene('background.svg');
+    let something = new Item();
+    let someOtherThing = new Item();
     myScene.add(something);
     myScene.add(someOtherThing);
     expect(myScene.items.filter((i) => {
@@ -27,11 +27,11 @@ describe('A scene', () => {
   });
 
   it('should be possible to highlight all items of a scene', () => {
-    var myScene = new Scene('background.svg');
-    var $element1 = document.createElement('div');
-    var $element2 = document.createElement('div');
-    var something1 = new Item('something1', $element1);
-    var something2 = new Item('something2', $element2);
+    let myScene = new Scene('background.svg');
+    let $element1 = document.createElement('div');
+    let $element2 = document.createElement('div');
+    let something1 = new Item('something1', $element1);
+    let something2 = new Item('something2', $element2);
 
     myScene.add(something1);
     myScene.add(something2);
@@ -42,11 +42,11 @@ describe('A scene', () => {
   });
 
   it('should be possible to stop highlighting all items of a scene', () => {
-    var myScene = new Scene('background.svg');
-    var $element1 = document.createElement('div');
-    var $element2 = document.createElement('div');
-    var something1 = new Item('something1', $element1);
-    var something2 = new Item('something2', $element2);
+    let myScene = new Scene('background.svg');
+    let $element1 = document.createElement('div');
+    let $element2 = document.createElement('div');
+    let something1 = new Item('something1', $element1);
+    let something2 = new Item('something2', $element2);
 
     myScene.add(something1);
     myScene.add(something2);
@@ -62,11 +62,11 @@ describe('A scene', () => {
   });
 
   it('can let someone walk to someone else', () => {
-    var myScene = new Scene('background.svg');
-    var $element1 = document.createElement('div');
-    var $element2 = document.createElement('div');
-    var peter = new Character('peter1', $element1, {name : 'Peter'});
-    var bob = new Character('bob1', $element2, {name : 'Bob'});
+    let myScene = new Scene('background.svg');
+    let $element1 = document.createElement('div');
+    let $element2 = document.createElement('div');
+    let peter = new Character('peter1', $element1, {name : 'Peter'});
+    let bob = new Character('bob1', $element2, {name : 'Bob'});
     myScene.add(peter);
     myScene.add(bob);
     myScene.use(peter).walkTo(bob);

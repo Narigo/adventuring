@@ -4,8 +4,8 @@ import Inventory from '../../main/js/Inventory';
 describe('Inventory', () => {
 
   it('should be possible to add items', () => {
-    var inventory = new Inventory();
-    var paper = new Item('paper');
+    let inventory = new Inventory();
+    let paper = new Item('paper');
 
     expect(() => {
       inventory.add(paper);
@@ -13,9 +13,9 @@ describe('Inventory', () => {
   });
 
   it('should be possible to list items', () => {
-    var inventory = new Inventory();
-    var paper = new Item('paper');
-    var pen = new Item('pen');
+    let inventory = new Inventory();
+    let paper = new Item('paper');
+    let pen = new Item('pen');
 
     inventory.add(paper);
     inventory.add(pen);
@@ -23,9 +23,9 @@ describe('Inventory', () => {
   });
 
   it('should be possible to remove items', () => {
-    var inventory = new Inventory();
-    var paper = new Item('paper');
-    var pen = new Item('pen');
+    let inventory = new Inventory();
+    let paper = new Item('paper');
+    let pen = new Item('pen');
 
     inventory.add(paper);
     inventory.add(pen);
@@ -35,10 +35,10 @@ describe('Inventory', () => {
   });
 
   it('should be possible to remove an item that is equal to an existing one', () => {
-    var inventory = new Inventory();
-    var paper = new Item('paper');
-    var pen1 = new Item('pen');
-    var pen2 = new Item('pen');
+    let inventory = new Inventory();
+    let paper = new Item('paper');
+    let pen1 = new Item('pen');
+    let pen2 = new Item('pen');
 
     inventory.add(paper);
     inventory.add(pen1);
@@ -48,8 +48,8 @@ describe('Inventory', () => {
   });
 
   it('should fire an event if an item gets added', (done) => {
-    var inventory = new Inventory();
-    var pen = new Item('pen');
+    let inventory = new Inventory();
+    let pen = new Item('pen');
 
     inventory.on('add', (item) => {
       expect(item).toEqual(pen);
@@ -61,9 +61,9 @@ describe('Inventory', () => {
   });
 
   it('should fire an event if an item gets removed', (done) => {
-    var inventory = new Inventory();
-    var paper = new Item('paper');
-    var pen = new Item('pen');
+    let inventory = new Inventory();
+    let paper = new Item('paper');
+    let pen = new Item('pen');
 
     inventory.on('remove', (item) => {
       expect(item).toEqual(pen);

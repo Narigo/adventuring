@@ -3,11 +3,11 @@ import Dialog from '../../main/js/Dialog';
 
 describe('Dialog', () => {
 
-  var $me = document.createElement('div');
-  var $peter = document.createElement('div');
-  var me = new Character('me', $me, {name : 'Me'});
-  var char = new Character('peter1', $peter, {name : 'Peter'});
-  var dialogWithReplies = new Dialog({
+  let $me = document.createElement('div');
+  let $peter = document.createElement('div');
+  let me = new Character('me', $me, {name : 'Me'});
+  let char = new Character('peter1', $peter, {name : 'Peter'});
+  let dialogWithReplies = new Dialog({
     char : char,
     text : 'Hello.',
     replies : [
@@ -24,14 +24,14 @@ describe('Dialog', () => {
 
   it('can be a character saying it', () => {
     expect(() => {
-      var char = new Character('peter1', $peter, {name : 'Peter'});
+      let char = new Character('peter1', $peter, {name : 'Peter'});
       new Dialog({char : char, text : 'Hello.'});
     }).not.toThrow();
   });
 
   it('should be possible to create a simple dialog for a character', (done) => {
-    var char = new Character('peter1', $peter, {name : 'Peter'});
-    var dialog = new Dialog({char : char, text : 'Hello.'});
+    let char = new Character('peter1', $peter, {name : 'Peter'});
+    let dialog = new Dialog({char : char, text : 'Hello.'});
 
     dialog.listen((conv) => {
       expect(conv.char).toEqual(char);
