@@ -102,6 +102,25 @@ describe('An item', () => {
     expect(coin.use(arcade)).toBeUndefined();
   });
 
+  it('should be possible to have a function that returns things and it gets executed', () => {
+    let coin = new Item('coin');
+    let arcade = new Item('arcade');
+    let plushie = new Item('plushie');
+    let changedSomething = false;
+
+    coin.on('use', {
+      arcade : () => {
+        changedSomething = true;
+        return {
+          returns : plushie
+        };
+      }
+    });
+
+    expect(coin.use(arcade)).toEqual(plushie);
+    expect(changedSomething).toBe(true);
+  });
+
   it('should be possible to highlight items', () => {
     let $element = document.createElement('div');
     let something = new Item('something', $element);

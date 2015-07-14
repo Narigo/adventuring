@@ -48,6 +48,9 @@ export default class Item {
     if (typeof useObj === 'undefined') {
       return;
     }
+    if (typeof useObj === 'function') {
+      useObj = useObj();
+    }
     if (useObj.once) {
       let myHandlers = this.handlers['use'];
       let otherHandlers = other.handlers['use'];
