@@ -3,7 +3,11 @@ import Scene from '../../main/js/Scene';
 
 describe('Adventure', () => {
   let theName = 'My little Test-Adventure';
-  let myAdventure = new Adventure(theName);
+  let myAdventure;
+
+  beforeEach(() => {
+    myAdventure = new Adventure(theName);
+  });
 
   it('should have a name', () => {
     expect(myAdventure.name()).toBe(theName);
@@ -34,9 +38,23 @@ describe('Adventure', () => {
 
   it('should throw an event when changing scenes', (done) => {
     let scene1 = new Scene('background.svg');
+    let scene2 = new Scene('background2.svg');
 
-    myAdventure.on('change-scene', (scene) => {
-      expect(scene).toEqual(scene1);
+    myAdventure.setScene(scene1);
+
+    myAdventure.on('change-scene', (data) => {
+      expect(data).toEqual({oldScene : scene1, scene : scene2});
+      done();
+    });
+
+    myAdventure.setScene(scene2);
+  });
+
+  it('has no information about the old scene at the start', (done) => {
+    let scene1 = new Scene('background.svg');
+
+    myAdventure.on('change-scene', (data) => {
+      expect(data).toEqual({oldScene : null, scene : scene1});
       done();
     });
 

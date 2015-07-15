@@ -3,9 +3,10 @@ import Scene from './Scene.js';
 
 export default class Adventure extends EventEmitter {
 
-  constructor(name) {
+  constructor(name, initialScene) {
     super();
     this._name = name;
+    this.scene = initialScene || null;
   }
 
   name() {
@@ -17,8 +18,9 @@ export default class Adventure extends EventEmitter {
       throw new Error('Must set to a Scene');
     }
 
+    let oldScene = this.scene;
     this.scene = scene;
-    this.emit('change-scene', scene);
+    this.emit('change-scene', {oldScene, scene});
   }
 
   currentBackground() {
