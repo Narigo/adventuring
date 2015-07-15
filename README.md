@@ -5,6 +5,7 @@ Let's see Point & Click adventures in browsers.
 
 TODO:
 * Frontend
+* Utility functions for actions (like picking up, open/close, etc)
 
 Puzzles can be done by combining items.
 
