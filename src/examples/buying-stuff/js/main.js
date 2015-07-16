@@ -15,17 +15,19 @@ inventory.on('add', (item) => {
   $inventory.appendChild($item);
 });
 
-let outsideShop = (function () {
-  let scene = new Scene('outside-shop');
-  let $money = document.getElementById('money');
-  let moneyItem = new Item('money', $money);
-  $money.addEventListener('click', () => {
-    console.log('clicked on scene');
-    inventory.add(moneyItem);
-  });
-
-  return scene;
-}());
-
+let outsideShop = new Scene('outside-shop');
 let insideShop = new Scene('inside-shop');
 
+let $money = document.getElementById('money');
+let moneyItem = new Item('money', $money);
+let moneyPickUp = () => {
+  console.log('clicked on scene');
+  inventory.add(moneyItem);
+  $money.removeEventListener('click', moneyPickUp);
+};
+$money.addEventListener('click', moneyPickUp);
+
+let $door = document.getElementById('shop');
+$door.addEventListener('click', () => {
+  adventure.setScene(insideShop);
+});
