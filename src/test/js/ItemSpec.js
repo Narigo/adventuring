@@ -1,5 +1,4 @@
-import Item from '../../main/js/Item';
-import {equality} from '../../main/js/Item';
+import {default as Item, equality, getItemInUse, setItemInUse, unsetItemInUse} from '../../main/js/Item';
 
 describe('An item', () => {
 
@@ -141,14 +140,26 @@ describe('An item', () => {
   });
 
   it('has no current item in use if none was set', () => {
-    fail('test missing');
+    expect(getItemInUse()).toBe(null);
   });
 
   it('may have a current item in use', () => {
-    fail('test missing');
+    let $element = document.createElement('div');
+    let something = new Item('something', $element);
+    expect(() => {
+      setItemInUse(something);
+    }).not.toThrow();
+    expect(getItemInUse()).toBe(something);
+    unsetItemInUse();
   });
 
   it('can unset an item in use', () => {
-    fail('test missing');
+    let $element = document.createElement('div');
+    let something = new Item('something', $element);
+    expect(getItemInUse()).toBe(null);
+    setItemInUse(something);
+    expect(getItemInUse()).toBe(something);
+    unsetItemInUse();
+    expect(getItemInUse()).toBe(null);
   });
 });
