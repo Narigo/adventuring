@@ -1,12 +1,12 @@
 import Adventure from '../../../main/js/Adventure'
 import Scene from '../../../main/js/Scene'
 import Inventory from '../../../main/js/Inventory'
-import Item from '../../../main/js/Item'
+import { default as Item, setItemInUse, getItemInUse, unsetItemInUse } from '../../../main/js/Item'
+import UsableItem from './UsableItem'
 
 let adventure = new Adventure('My buying adventure');
 let inventory = new Inventory();
 let $inventory = document.getElementById('inventory');
-let itemInUse = null;
 
 adventure.on('change-scene', (data) => {
   console.log(data);
@@ -26,46 +26,64 @@ inventory.on('add', (item) => {
   $inventory.appendChild($item);
 
   item.$element.addEventListener('click', useItem(item));
-  document.addEventListener('click', removeUsing);
 
   function useItem(item) {
     return (e) => {
       e.preventDefault();
       e.stopPropagation();
-      console.log('using something...');
-      itemInUse = item;
+      let itemInUse = getItemInUse();
+      if (itemInUse !== null) {
+        console.log('using ' + itemInUse.id + ' on inventory item ' + item.id);
+        itemInUse.use(item);
+        unsetItemInUse();
+      } else {
+        console.log('using ' + item.id + ' from inventory...');
+        setItemInUse(item);
+      }
     };
   }
-
-  function removeUsing(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('not using anything');
-    itemInUse = null;
-  }
 });
+
+document.addEventListener('click', removeUsing);
+
+function removeUsing(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  let itemInUse = getItemInUse();
+  if (itemInUse !== null) {
+    console.log('stop using ' + itemInUse.id);
+    unsetItemInUse();
+  }
+}
 
 let outsideShop = new Scene('outside-shop');
 let insideShop = new Scene('inside-shop');
 
 let $money = document.getElementById('money');
 let moneyItem = new Item('money', $money);
-let moneyPickUp = () => {
-  console.log('clicked on scene');
-  inventory.add(moneyItem);
-  $money.removeEventListener('click', moneyPickUp);
-};
-$money.addEventListener('click', moneyPickUp);
+$money.addEventListener('click', pickUpOrUse(moneyItem));
 
 let $pen = document.getElementById('pen');
-let pen = new Item('pen', $pen);
-$pen.addEventListener('click', () => {
-  console.log('clicked on pen');
-  if (itemInUse === moneyItem) {
-    console.log('using money on pen');
-    moneyItem.use(pen);
-  }
-});
+let pen = new UsableItem('pen', $pen);
+
+function pickUpOrUse(item) {
+  var clickFn = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log('clicked on ' + item.id);
+    let itemInUse = getItemInUse();
+    if (itemInUse !== null) {
+      console.log('using ' + itemInUse.id + ' on ' + item.id);
+      itemInUse.use(item);
+    } else {
+      console.log('picking up ' + item.id);
+      inventory.add(item);
+      item.$element.removeEventListener('click', clickFn);
+    }
+  };
+
+  return clickFn;
+}
 
 moneyItem.on('use', {
   pen : () => {

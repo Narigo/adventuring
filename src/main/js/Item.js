@@ -1,6 +1,8 @@
-var adventure = {
+let adventure = {
   items : {}
 };
+
+let itemInUse = null;
 
 export default class Item {
 
@@ -94,3 +96,15 @@ function equals(a, b) {
 }
 
 export { equals as equality };
+
+export function getItemInUse() {
+  return itemInUse;
+}
+
+export function setItemInUse(item) {
+  itemInUse = item;
+}
+
+export function unsetItemInUse() {
+  itemInUse = null;
+}

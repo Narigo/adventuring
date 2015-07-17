@@ -140,4 +140,15 @@ describe('An item', () => {
     expect($element.classList.contains('highlight')).toBe(false);
   });
 
+  it('has no current item in use if none was set', () => {
+    fail('test missing');
+  });
+
+  it('may have a current item in use', () => {
+    fail('test missing');
+  });
+
+  it('can unset an item in use', () => {
+    fail('test missing');
+  });
 });
