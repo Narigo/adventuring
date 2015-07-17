@@ -27,6 +27,22 @@ let moneyPickUp = () => {
 };
 $money.addEventListener('click', moneyPickUp);
 
+let $pen = document.getElementById('pen');
+let pen = new Item('pen', $pen);
+$pen.addEventListener('click', () => {
+  console.log('clicked on pen');
+});
+
+moneyItem.on('use', {
+  pen : () => {
+    inventory.add(pen);
+    inventory.remove(moneyItem);
+    return {
+      once : true
+    };
+  }
+});
+
 let $door = document.getElementById('shop');
 $door.addEventListener('click', () => {
   adventure.setScene(insideShop);
