@@ -1,0 +1,14 @@
+.inventory {
+  background-color: #f00;
+  width: 10%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  .item {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+}
