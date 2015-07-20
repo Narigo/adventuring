@@ -19,11 +19,9 @@ adventure.on('change-scene', (data) => {
 });
 
 inventory.on('add', (item) => {
-  let $item = document.createElement('div');
   item.$element.parentNode.removeChild(item.$element);
   item.$element.removeEventListener('click');
-  $item.appendChild(item.$element);
-  $inventory.appendChild($item);
+  $inventory.appendChild(item.$element);
 
   item.$element.addEventListener('click', useItem(item));
 
@@ -44,6 +42,10 @@ inventory.on('add', (item) => {
   }
 });
 
+inventory.on('remove', (item) => {
+  $inventory.removeChild(item.$element);
+});
+
 document.addEventListener('click', removeUsing);
 
 function removeUsing(e) {
@@ -61,6 +63,8 @@ let insideShop = new Scene('inside-shop');
 
 let $money = document.getElementById('money');
 let moneyItem = new Item('money', $money);
+let $lessMoney = document.getElementById('lessMoney');
+let lessMoney = new Item('lessMoney', $lessMoney);
 $money.addEventListener('click', pickUpOrUse(moneyItem));
 
 let $pen = document.getElementById('pen');
@@ -89,6 +93,7 @@ moneyItem.on('use', {
   pen : () => {
     inventory.add(pen);
     inventory.remove(moneyItem);
+    inventory.add(lessMoney);
     return {
       once : true
     };
