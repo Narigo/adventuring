@@ -48,16 +48,6 @@ inventory.on('remove', (item) => {
 
 document.addEventListener('click', removeUsing);
 
-function removeUsing(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  let itemInUse = getItemInUse();
-  if (itemInUse !== null) {
-    console.log('stop using ' + itemInUse.id);
-    unsetItemInUse();
-  }
-}
-
 let outsideShop = new Scene('outside-shop');
 let insideShop = new Scene('inside-shop');
 
@@ -69,25 +59,6 @@ $money.addEventListener('click', pickUpOrUse(moneyItem));
 
 let $pen = document.getElementById('pen');
 let pen = new UsableItem('pen', $pen);
-
-function pickUpOrUse(item) {
-  var clickFn = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    console.log('clicked on ' + item.id);
-    let itemInUse = getItemInUse();
-    if (itemInUse !== null) {
-      console.log('using ' + itemInUse.id + ' on ' + item.id);
-      itemInUse.use(item);
-    } else {
-      console.log('picking up ' + item.id);
-      inventory.add(item);
-      item.$element.removeEventListener('click', clickFn);
-    }
-  };
-
-  return clickFn;
-}
 
 moneyItem.on('use', {
   pen : () => {
@@ -111,3 +82,32 @@ $doorOut.addEventListener('click', () => {
 });
 
 adventure.setScene(outsideShop);
+
+function pickUpOrUse(item) {
+  var clickFn = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log('clicked on ' + item.id);
+    let itemInUse = getItemInUse();
+    if (itemInUse !== null) {
+      console.log('using ' + itemInUse.id + ' on ' + item.id);
+      itemInUse.use(item);
+    } else {
+      console.log('picking up ' + item.id);
+      inventory.add(item);
+      item.$element.removeEventListener('click', clickFn);
+    }
+  };
+
+  return clickFn;
+}
+
+function removeUsing(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  let itemInUse = getItemInUse();
+  if (itemInUse !== null) {
+    console.log('stop using ' + itemInUse.id);
+    unsetItemInUse();
+  }
+}
