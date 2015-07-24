@@ -1,12 +1,15 @@
+import EventEmitter from 'events';
+
 let adventure = {
   items : {}
 };
 
 let itemInUse = null;
 
-export default class Item {
+export default class Item extends EventEmitter {
 
   constructor(id, $element) {
+    super();
     this.id = id;
     this.$element = $element;
     this.handlers = {};
@@ -24,6 +27,7 @@ export default class Item {
 
   on(event, funcOrObject) {
     var otherItem, otherItemId;
+
     if (event === 'use') {
       for (otherItemId in funcOrObject) {
         if (funcOrObject.hasOwnProperty(otherItemId)) {
@@ -34,15 +38,14 @@ export default class Item {
           }
         }
       }
+      this.handlers[event] = funcOrObject;
+    } else {
+      super.on(event, funcOrObject);
     }
-    this.handlers[event] = funcOrObject;
   }
 
   click() {
-    var clickHandler = this.handlers['click'];
-    if (clickHandler) {
-      return clickHandler();
-    }
+    this.emit('click');
   }
 
   use(other) {

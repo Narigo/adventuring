@@ -13,15 +13,31 @@ describe('An item', () => {
     expect(item1).toEqual(item2);
   });
 
-  it('should have custom click handlers', () => {
+  it('can have custom handlers', () => {
     let myItem = new Item('something');
-    let clickText = 'click something';
+    let sideEffected = false;
     myItem.on('click', () => {
-      return clickText;
+      sideEffected = true;
     });
-    let ret = myItem.click();
+    myItem.click();
 
-    expect(ret).toEqual(clickText);
+    expect(sideEffected).toEqual(true);
+  });
+
+  it('can register multiple handlers for the same event', () => {
+    let myItem = new Item('something');
+    let sideEffected1 = false;
+    let sideEffected2 = false;
+    myItem.on('click', () => {
+      sideEffected1 = true;
+    });
+    myItem.on('click', () => {
+      sideEffected2 = true;
+    });
+    myItem.click();
+
+    expect(sideEffected1).toEqual(true);
+    expect(sideEffected2).toEqual(true);
   });
 
   it('may be used with other items in both directions', () => {
