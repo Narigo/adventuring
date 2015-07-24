@@ -1,6 +1,7 @@
 import Adventure from '../../../main/js/Adventure'
 import Scene from '../../../main/js/Scene'
 import Inventory from '../../../main/js/Inventory'
+import Dialog from '../../../main/js/Dialog'
 import { default as Item, setItemInUse, getItemInUse, unsetItemInUse } from '../../../main/js/Item'
 import UsableItem from './UsableItem'
 
@@ -52,6 +53,7 @@ let outsideShop = new Scene('outside-shop');
 let insideShop = new Scene('inside-shop');
 
 let $money = document.getElementById('money');
+let $dialog = document.getElementById('dialog');
 let moneyItem = new Item('money', $money);
 let $lessMoney = document.getElementById('lessMoney');
 let lessMoney = new Item('lessMoney', $lessMoney);
@@ -59,6 +61,13 @@ $money.addEventListener('click', pickUpOrUse(moneyItem));
 
 let $pen = document.getElementById('pen');
 let pen = new UsableItem('pen', $pen);
+
+pen.on('click', () => {
+  console.log('clicked on pen, open dialog');
+  new Dialog({text : 'I need money to buy this'}).listen(dialog => {
+    $dialog.innerHTML = dialog.text;
+  });
+});
 
 moneyItem.on('use', {
   pen : () => {
