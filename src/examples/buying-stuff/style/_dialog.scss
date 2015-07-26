@@ -1,0 +1,17 @@
+.dialog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  color: $dialog-default-color;
+  text-shadow: 2px 0 0 $dialog-outline-color,
+              -2px 0 0 $dialog-outline-color,
+               0 2px 0 $dialog-outline-color,
+              0 -2px 0 $dialog-outline-color,
+               1px 1px $dialog-outline-color,
+           -1px -1px 0 $dialog-outline-color,
+            1px -1px 0 $dialog-outline-color,
+            -1px 1px 0 $dialog-outline-color;
+}
