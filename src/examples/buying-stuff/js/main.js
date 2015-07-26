@@ -8,6 +8,7 @@ import UsableItem from './UsableItem'
 let adventure = new Adventure('My buying adventure');
 let inventory = new Inventory();
 let $inventory = document.getElementById('inventory');
+let showDialog = showDialogFactory();
 
 adventure.on('change-scene', (data) => {
   console.log(data);
@@ -53,7 +54,6 @@ let outsideShop = new Scene('outside-shop');
 let insideShop = new Scene('inside-shop');
 
 let $money = document.getElementById('money');
-let $dialog = document.getElementById('dialog');
 let moneyItem = new Item('money', $money);
 let $lessMoney = document.getElementById('lessMoney');
 let lessMoney = new Item('lessMoney', $lessMoney);
@@ -64,9 +64,7 @@ let pen = new UsableItem('pen', $pen);
 
 pen.on('click', () => {
   console.log('clicked on pen, open dialog');
-  new Dialog({text : 'I need money to buy this'}).listen(dialog => {
-    $dialog.innerHTML = dialog.text;
-  });
+  new Dialog({text : 'I need money to buy this'}).listen(showDialog);
 });
 
 moneyItem.on('use', {
@@ -118,5 +116,35 @@ function removeUsing(e) {
   if (itemInUse !== null) {
     console.log('stop using ' + itemInUse.id);
     unsetItemInUse();
+  }
+}
+
+function showDialogFactory() {
+  let $dialog = document.getElementById('dialog');
+  let dialogQueue = [];
+  let displayingText = false;
+
+  return function display(dialog) {
+    if (!displayingText) {
+      displayDialog(dialog.text);
+    } else {
+      dialogQueue.push(dialog.text);
+    }
+  };
+
+  function nextDialog() {
+    if (dialogQueue.length > 0) {
+      let next = dialogQueue.shift();
+      displayDialog(next);
+    } else {
+      $dialog.innerHTML = '';
+      displayingText = false;
+    }
+  }
+
+  function displayDialog(text) {
+    $dialog.innerHTML = text;
+    displayingText = true;
+    setTimeout(nextDialog, 2000);
   }
 }
