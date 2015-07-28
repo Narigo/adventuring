@@ -121,30 +121,15 @@ function removeUsing(e) {
 
 function showDialogFactory() {
   let $dialog = document.getElementById('dialog');
-  let dialogQueue = [];
-  let displayingText = false;
 
   return (dialog) => {
-    if (!displayingText) {
-      displayDialog(dialog.text);
-    } else {
-      dialogQueue.push(dialog.text);
-    }
+    displayDialog(dialog);
   };
 
-  function nextDialog() {
-    if (dialogQueue.length > 0) {
-      let next = dialogQueue.shift();
-      displayDialog(next);
-    } else {
+  function displayDialog(dialog) {
+    $dialog.innerHTML = dialog.text;
+    setTimeout(() => {
       $dialog.innerHTML = '';
-      displayingText = false;
-    }
-  }
-
-  function displayDialog(text) {
-    $dialog.innerHTML = text;
-    displayingText = true;
-    setTimeout(nextDialog, 2000);
+    }, 2000);
   }
 }
