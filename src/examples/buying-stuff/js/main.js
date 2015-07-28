@@ -124,7 +124,7 @@ function showDialogFactory() {
   let dialogQueue = [];
   let displayingText = false;
 
-  return function display(dialog) {
+  return (dialog) => {
     if (!displayingText) {
       displayDialog(dialog.text);
     } else {
