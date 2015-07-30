@@ -123,13 +123,9 @@ function showDialogFactory() {
   let $dialog = document.getElementById('dialog');
 
   return (dialog) => {
-    displayDialog(dialog);
-  };
-
-  function displayDialog(dialog) {
     $dialog.innerHTML = dialog.text;
     setTimeout(() => {
       $dialog.innerHTML = '';
     }, 2000);
-  }
+  };
 }
