@@ -131,7 +131,5 @@ function showDialogFactory() {
 }
 
 function dialogTime(text) {
-  var time = Math.max(1000, text.length * 75);
-  console.log('show dialog "' + text + '" for ' + time + 'ms');
-  return time;
+  return Math.max(1000, text.length * 75);
 }
