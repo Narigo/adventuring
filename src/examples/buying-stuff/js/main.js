@@ -126,6 +126,12 @@ function showDialogFactory() {
     $dialog.innerHTML = dialog.text;
     setTimeout(() => {
       $dialog.innerHTML = '';
-    }, 2000);
+    }, dialogTime(dialog.text));
   };
+}
+
+function dialogTime(text) {
+  var time = Math.max(1000, text.length * 75);
+  console.log('show dialog "' + text + '" for ' + time + 'ms');
+  return time;
 }
