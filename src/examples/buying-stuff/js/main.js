@@ -4,6 +4,7 @@ import Inventory from '../../../main/js/Inventory'
 import Dialog from '../../../main/js/Dialog'
 import { default as Item, setItemInUse, getItemInUse, unsetItemInUse } from '../../../main/js/Item'
 import UsableItem from './UsableItem'
+import config from './config'
 
 let adventure = new Adventure('My buying adventure');
 let inventory = new Inventory();
@@ -131,5 +132,5 @@ function showDialogFactory() {
 }
 
 function dialogTime(text) {
-  return Math.max(1000, text.length * 75);
+  return Math.max(config.dialog.minTime, text.length * config.dialog.timePerCharacter);
 }
