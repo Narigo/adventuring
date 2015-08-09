@@ -65,7 +65,9 @@ let pen = new UsableItem('pen', $pen);
 
 pen.on('click', () => {
   console.log('clicked on pen, open dialog');
-  new Dialog({text : 'I need money to buy this'}).listen(showDialog);
+  if (!inventory.contains(pen)) {
+    new Dialog({text : 'I need money to buy this'}).listen(showDialog);
+  }
 });
 
 moneyItem.on('use', {
