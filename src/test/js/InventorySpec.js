@@ -76,4 +76,15 @@ describe('Inventory', () => {
     inventory.remove(pen);
 
   });
+
+  it('can tell if an item is inside of it', () => {
+    let inventory = new Inventory();
+    let paper = new Item('paper');
+    let pen = new Item('pen');
+
+    inventory.add(pen);
+
+    expect(inventory.contains(paper)).toBe(false);
+    expect(inventory.contains(pen)).toBe(true);
+  })
 });

@@ -21,6 +21,9 @@ class Inventory extends EventEmitter {
     this.emit('remove', item);
   }
 
+  contains(item) {
+    return this.items.indexOf(item) >= 0;
+  }
 }
 
 module.exports = Inventory;
