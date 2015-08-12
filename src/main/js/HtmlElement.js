@@ -7,4 +7,16 @@ export default class HtmlElement {
     this.$element = $element;
   }
 
+  highlight() {
+    return this.$element.classList.add('highlight');
+  }
+
+  isHighlighted() {
+    return this.$element.classList.contains('highlight');
+  }
+
+  stopHighlight() {
+    return this.$element.classList.remove('highlight');
+  }
+
 }

@@ -1,6 +1,7 @@
 import Scene from '../../main/js/Scene';
 import Item from '../../main/js/Item';
 import Character from '../../main/js/Character';
+import HtmlElement from '../../main/js/HtmlElement';
 
 describe('A scene', () => {
 
@@ -28,8 +29,10 @@ describe('A scene', () => {
 
   it('should be possible to highlight all items of a scene', () => {
     let myScene = new Scene('background.svg');
-    let $element1 = document.createElement('div');
-    let $element2 = document.createElement('div');
+    let div1 = document.createElement('div');
+    let div2 = document.createElement('div');
+    let $element1 = new HtmlElement(div1);
+    let $element2 = new HtmlElement(div2);
     let something1 = new Item('something1', $element1);
     let something2 = new Item('something2', $element2);
 
@@ -37,14 +40,16 @@ describe('A scene', () => {
     myScene.add(something2);
     myScene.highlightAllItems();
 
-    expect($element1.classList.contains('highlight')).toBe(true);
-    expect($element2.classList.contains('highlight')).toBe(true);
+    expect($element1.$element.classList.contains('highlight')).toBe(true);
+    expect($element2.$element.classList.contains('highlight')).toBe(true);
   });
 
   it('should be possible to stop highlighting all items of a scene', () => {
     let myScene = new Scene('background.svg');
-    let $element1 = document.createElement('div');
-    let $element2 = document.createElement('div');
+    let div1 = document.createElement('div');
+    let div2 = document.createElement('div');
+    let $element1 = new HtmlElement(div1);
+    let $element2 = new HtmlElement(div2);
     let something1 = new Item('something1', $element1);
     let something2 = new Item('something2', $element2);
 
@@ -52,13 +57,13 @@ describe('A scene', () => {
     myScene.add(something2);
 
     something1.highlight();
-    expect($element1.classList.contains('highlight')).toBe(true);
-    expect($element2.classList.contains('highlight')).toBe(false);
+    expect($element1.$element.classList.contains('highlight')).toBe(true);
+    expect($element2.$element.classList.contains('highlight')).toBe(false);
 
     myScene.stopHighlightAllItems();
 
-    expect($element1.classList.contains('highlight')).toBe(false);
-    expect($element2.classList.contains('highlight')).toBe(false);
+    expect($element1.$element.classList.contains('highlight')).toBe(false);
+    expect($element2.$element.classList.contains('highlight')).toBe(false);
   });
 
   it('can let someone walk to someone else', () => {

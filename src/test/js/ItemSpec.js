@@ -1,4 +1,5 @@
 import {default as Item, equality, getItemInUse, setItemInUse, unsetItemInUse} from '../../main/js/Item';
+import HtmlElement from '../../main/js/HtmlElement';
 
 describe('An item', () => {
 
@@ -137,22 +138,24 @@ describe('An item', () => {
   });
 
   it('should be possible to highlight items', () => {
-    let $element = document.createElement('div');
+    let div = document.createElement('div');
+    let $element = new HtmlElement(div);
     let something = new Item('something', $element);
 
     something.highlight();
 
-    expect($element.classList.contains('highlight')).toBe(true);
+    expect($element.$element.classList.contains('highlight')).toBe(true);
   });
 
   it('should be possible to stop highlighting items', () => {
-    let $element = document.createElement('div');
+    let div = document.createElement('div');
+    let $element = new HtmlElement(div);
     let something = new Item('something', $element);
 
     something.highlight();
     something.stopHighlight();
 
-    expect($element.classList.contains('highlight')).toBe(false);
+    expect($element.$element.classList.contains('highlight')).toBe(false);
   });
 
   it('has no current item in use if none was set', () => {

@@ -18,11 +18,11 @@ export default class Item extends EventEmitter {
   }
 
   highlight() {
-    this.$element.classList.add('highlight');
+    this.$element.highlight();
   }
 
   stopHighlight() {
-    this.$element.classList.remove('highlight');
+    this.$element.stopHighlight();
   }
 
   on(event, funcOrObject) {

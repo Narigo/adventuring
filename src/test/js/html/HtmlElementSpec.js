@@ -13,4 +13,26 @@ describe('HTML Element', () => {
     }).not.toThrow();
   });
 
+  it('can be highlighted', () => {
+    let div = document.createElement('div');
+    let element = new HtmlElement(div);
+
+    element.highlight();
+    expect(element.isHighlighted()).toBe(true);
+    expect(div.classList.contains('highlight')).toBe(true);
+  });
+
+  it('can stop highlighting', () => {
+    let div = document.createElement('div');
+    let element = new HtmlElement(div);
+
+    element.highlight();
+    expect(element.isHighlighted()).toBe(true);
+
+    element.stopHighlight();
+    expect(element.isHighlighted()).toBe(false);
+
+    expect(div.classList.contains('highlight')).toBe(false);
+  });
+
 });
