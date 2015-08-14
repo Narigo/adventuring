@@ -1,10 +1,12 @@
-export default class HtmlElement {
+import Element from './Element';
+
+export default class HtmlElement extends Element {
 
   constructor($element) {
+    super($element);
     if (!($element instanceof HTMLElement)) {
       throw new Error('need HTML element to construct an element');
     }
-    this.$element = $element;
   }
 
   highlight() {

@@ -138,8 +138,7 @@ describe('An item', () => {
   });
 
   it('should be possible to highlight items', () => {
-    let div = document.createElement('div');
-    let $element = new HtmlElement(div);
+    let $element = new HtmlElement(document.createElement('div'));
     let something = new Item('something', $element);
 
     something.highlight();
@@ -148,8 +147,7 @@ describe('An item', () => {
   });
 
   it('should be possible to stop highlighting items', () => {
-    let div = document.createElement('div');
-    let $element = new HtmlElement(div);
+    let $element = new HtmlElement(document.createElement('div'));
     let something = new Item('something', $element);
 
     something.highlight();
@@ -163,7 +161,7 @@ describe('An item', () => {
   });
 
   it('may have a current item in use', () => {
-    let $element = document.createElement('div');
+    let $element = new HtmlElement(document.createElement('div'));
     let something = new Item('something', $element);
     expect(() => {
       setItemInUse(something);
@@ -173,7 +171,7 @@ describe('An item', () => {
   });
 
   it('can unset an item in use', () => {
-    let $element = document.createElement('div');
+    let $element = new HtmlElement(document.createElement('div'));
     let something = new Item('something', $element);
     expect(getItemInUse()).toBe(null);
     setItemInUse(something);

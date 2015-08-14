@@ -68,8 +68,8 @@ describe('A scene', () => {
 
   it('can let someone walk to someone else', () => {
     let myScene = new Scene('background.svg');
-    let $element1 = document.createElement('div');
-    let $element2 = document.createElement('div');
+    let $element1 = new HtmlElement(document.createElement('div'));
+    let $element2 = new HtmlElement(document.createElement('div'));
     let peter = new Character('peter1', $element1, {name : 'Peter'});
     let bob = new Character('bob1', $element2, {name : 'Bob'});
     myScene.add(peter);

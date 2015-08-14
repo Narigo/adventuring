@@ -1,4 +1,5 @@
 import EventEmitter from 'events';
+import Element from './Element';
 
 let adventure = {
   items : {}
@@ -10,6 +11,9 @@ export default class Item extends EventEmitter {
 
   constructor(id, $element) {
     super();
+    if ($element && !($element instanceof Element)) {
+      throw new Error('Item needs an Element to work with');
+    }
     this.id = id;
     this.$element = $element;
     this.handlers = {};

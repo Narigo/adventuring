@@ -1,10 +1,11 @@
 import Character from '../../main/js/Character';
 import Dialog from '../../main/js/Dialog';
+import HtmlElement from '../../main/js/HtmlElement';
 
 describe('Dialog', () => {
 
-  let $me = document.createElement('div');
-  let $peter = document.createElement('div');
+  let $me = new HtmlElement(document.createElement('div'));
+  let $peter = new HtmlElement(document.createElement('div'));
   let me = new Character('me', $me, {name : 'Me'});
   let char = new Character('peter1', $peter, {name : 'Peter'});
   let dialogWithReplies = new Dialog({

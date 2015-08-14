@@ -1,10 +1,11 @@
 import Scene from '../../main/js/Scene';
 import Character from '../../main/js/Character';
 import Dialog from '../../main/js/Dialog';
+import HtmlElement from '../../main/js/HtmlElement';
 
 describe('A character', () => {
   let name = 'Peter';
-  let $element = document.createElement('div');
+  let $element = new HtmlElement(document.createElement('div'));
 
   it('should have a name', () => {
     let peter = new Character('peter1', $element, {name});
