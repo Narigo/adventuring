@@ -143,7 +143,7 @@ describe('An item', () => {
 
     something.highlight();
 
-    expect($element.$element.classList.contains('highlight')).toBe(true);
+    expect($element.isHighlighted()).toBe(true);
   });
 
   it('should be possible to stop highlighting items', () => {
@@ -153,7 +153,7 @@ describe('An item', () => {
     something.highlight();
     something.stopHighlight();
 
-    expect($element.$element.classList.contains('highlight')).toBe(false);
+    expect($element.isHighlighted()).toBe(false);
   });
 
   it('has no current item in use if none was set', () => {

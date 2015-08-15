@@ -40,8 +40,8 @@ describe('A scene', () => {
     myScene.add(something2);
     myScene.highlightAllItems();
 
-    expect($element1.$element.classList.contains('highlight')).toBe(true);
-    expect($element2.$element.classList.contains('highlight')).toBe(true);
+    expect($element1.isHighlighted()).toBe(true);
+    expect($element2.isHighlighted()).toBe(true);
   });
 
   it('should be possible to stop highlighting all items of a scene', () => {
@@ -57,13 +57,13 @@ describe('A scene', () => {
     myScene.add(something2);
 
     something1.highlight();
-    expect($element1.$element.classList.contains('highlight')).toBe(true);
-    expect($element2.$element.classList.contains('highlight')).toBe(false);
+    expect($element1.isHighlighted()).toBe(true);
+    expect($element2.isHighlighted()).toBe(false);
 
     myScene.stopHighlightAllItems();
 
-    expect($element1.$element.classList.contains('highlight')).toBe(false);
-    expect($element2.$element.classList.contains('highlight')).toBe(false);
+    expect($element1.isHighlighted()).toBe(false);
+    expect($element2.isHighlighted()).toBe(false);
   });
 
   it('can let someone walk to someone else', () => {
