@@ -1,0 +1,6 @@
+{
+  "dialog": {
+    "minTime": 1000,
+    "timePerCharacter": 75
+  }
+}
