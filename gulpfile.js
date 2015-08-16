@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var browserify = require('browserify');
 var del = require('del');
 var es = require('event-stream');
+var ghPages = require('gulp-gh-pages');
 var path = require('path');
 var plumber = require('gulp-plumber');
 var sass = require('gulp-sass');
@@ -13,6 +14,7 @@ gulp.task('sass', compileScss);
 gulp.task('scripts', compileScripts);
 gulp.task('build:examples', ['assets', 'sass', 'scripts']);
 gulp.task('clean', cleanOutDir);
+gulp.task('deploy', deployGhPages);
 gulp.task('default', ['build:examples']);
 
 var outDir = 'out';
@@ -55,6 +57,11 @@ function compileScripts(cb) {
       es.merge.apply(null, scriptStreams)
         .on('end', cb);
     });
+}
+
+function deployGhPages() {
+  return gulp.src(outDir + '/**')
+    .pipe(ghPages());
 }
 
 function cleanOutDir(cb) {
