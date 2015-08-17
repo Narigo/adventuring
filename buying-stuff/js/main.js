@@ -349,7 +349,7 @@ var UsableItem = (function (_Item) {
 exports['default'] = UsableItem;
 module.exports = exports['default'];
 
-},{"../../../main/js/Item":8}],3:[function(require,module,exports){
+},{"../../../main/js/Item":9}],3:[function(require,module,exports){
 module.exports={
   "dialog": {
     "minTime": 1000,
@@ -520,7 +520,7 @@ function dialogTime(text) {
   return Math.max(_config2['default'].dialog.minTime, text.length * _config2['default'].dialog.timePerCharacter);
 }
 
-},{"../../../main/js/Adventure":5,"../../../main/js/Dialog":6,"../../../main/js/Inventory":7,"../../../main/js/Item":8,"../../../main/js/Scene":9,"./UsableItem":2,"./config":3}],5:[function(require,module,exports){
+},{"../../../main/js/Adventure":5,"../../../main/js/Dialog":6,"../../../main/js/Inventory":8,"../../../main/js/Item":9,"../../../main/js/Scene":10,"./UsableItem":2,"./config":3}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -585,7 +585,7 @@ var Adventure = (function (_EventEmitter) {
 exports['default'] = Adventure;
 module.exports = exports['default'];
 
-},{"./Scene.js":9,"events":1}],6:[function(require,module,exports){
+},{"./Scene.js":10,"events":1}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -637,6 +637,41 @@ exports['default'] = Dialog;
 module.exports = exports['default'];
 
 },{}],7:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Element = (function () {
+  function Element($element) {
+    _classCallCheck(this, Element);
+
+    this.$element = $element;
+  }
+
+  _createClass(Element, [{
+    key: "highlight",
+    value: function highlight() {}
+  }, {
+    key: "isHighlighted",
+    value: function isHighlighted() {}
+  }, {
+    key: "stopHighlight",
+    value: function stopHighlight() {}
+  }]);
+
+  return Element;
+})();
+
+exports["default"] = Element;
+module.exports = exports["default"];
+
+},{}],8:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -692,7 +727,7 @@ var Inventory = (function (_EventEmitter) {
 
 module.exports = Inventory;
 
-},{"events":1}],8:[function(require,module,exports){
+},{"events":1}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -717,6 +752,10 @@ var _events = require('events');
 
 var _events2 = _interopRequireDefault(_events);
 
+var _Element = require('./Element');
+
+var _Element2 = _interopRequireDefault(_Element);
+
 var adventure = {
   items: {}
 };
@@ -728,6 +767,9 @@ var Item = (function (_EventEmitter) {
     _classCallCheck(this, Item);
 
     _get(Object.getPrototypeOf(Item.prototype), 'constructor', this).call(this);
+    if ($element && !($element instanceof _Element2['default'])) {
+      throw new Error('Item needs an Element to work with');
+    }
     this.id = id;
     this.$element = $element;
     this.handlers = {};
@@ -740,12 +782,12 @@ var Item = (function (_EventEmitter) {
   _createClass(Item, [{
     key: 'highlight',
     value: function highlight() {
-      this.$element.classList.add('highlight');
+      this.$element.highlight();
     }
   }, {
     key: 'stopHighlight',
     value: function stopHighlight() {
-      this.$element.classList.remove('highlight');
+      this.$element.stopHighlight();
     }
   }, {
     key: 'on',
@@ -842,7 +884,7 @@ function unsetItemInUse() {
   itemInUse = null;
 }
 
-},{"events":1}],9:[function(require,module,exports){
+},{"./Element":7,"events":1}],10:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
