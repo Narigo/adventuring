@@ -13,8 +13,9 @@ var through = require('through2');
 gulp.task('assets', copyAssets);
 gulp.task('sass', compileScss);
 gulp.task('scripts', compileScripts);
-gulp.task('examples', buildExampleList);
-gulp.task('build:examples', ['assets', 'sass', 'scripts', 'examples']);
+gulp.task('build:core', ['assets', 'sass', 'scripts']);
+gulp.task('build:examples', ['build:core'], buildExampleList);
+gulp.task('build', ['build:core', 'build:examples']);
 gulp.task('clean', cleanOutDir);
 gulp.task('deploy', ['build:examples'], deployGhPages);
 gulp.task('default', ['build:examples']);
@@ -81,5 +82,5 @@ function deployGhPages() {
 }
 
 function cleanOutDir(cb) {
-  del(outDir, cb);
+  del([outDir, '.publish'], cb);
 }
