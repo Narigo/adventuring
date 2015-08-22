@@ -69,7 +69,8 @@ function buildIndexFile(cb) {
       starttag : '<!-- inject:examples -->',
       transform : function (filePath, file) {
         // return file contents as string
-        return '<li><a href="' + file.relative + '">' + file.relative + '</a></li>\n';
+        console.log(nameFromPath(file.relative));
+        return '<li><a href="' + file.relative + '">' + nameFromPath(file.relative) + '</a></li>';
       }
     }))
     // Documentation
@@ -81,6 +82,10 @@ function buildIndexFile(cb) {
       }
     }))
     .pipe(gulp.dest(outDir));
+
+  function nameFromPath(relativePath) {
+    return relativePath.substring(0, relativePath.indexOf('/'));
+  }
 }
 
 function deployGhPages() {
