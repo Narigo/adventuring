@@ -5,6 +5,7 @@ var es = require('event-stream');
 var fs = require('fs');
 var ghPages = require('gulp-gh-pages');
 var gutil = require('gulp-util');
+var inject = require('gulp-inject');
 var markdown = require('gulp-markdown');
 var path = require('path');
 var plumber = require('gulp-plumber');
@@ -17,8 +18,7 @@ gulp.task('sass', compileScss);
 gulp.task('scripts', compileScripts);
 gulp.task('build:core', ['assets', 'sass', 'scripts']);
 gulp.task('build:examples', ['build:core'], buildIndexFile);
-gulp.task('build:docs', buildDocumentation);
-gulp.task('build', ['build:core', 'build:examples', 'build:docs']);
+gulp.task('build', ['build:core', 'build:examples']);
 gulp.task('clean', cleanOutDir);
 gulp.task('deploy', ['build:examples'], deployGhPages);
 gulp.task('default', ['build:examples']);
@@ -63,22 +63,23 @@ function compileScripts(cb) {
 }
 
 function buildIndexFile(cb) {
-  var examplesPath = 'src/examples';
-  var subDirsHtml = fs.readdirSync(examplesPath).filter(function (file) {
-    return fs.statSync(path.join(examplesPath, file)).isDirectory();
-  }).map(function (elem) {
-    return '<li><a href="' + elem + '">' + elem + '</a></li>\n';
-  });
-
-  var indexHtml = fs.readFileSync('src/examples/index.html').toString().replace(/<!-- examples -->/, subDirsHtml);
-
-  fs.writeFileSync('out/index.html', indexHtml);
-  cb();
-}
-
-function buildDocumentation() {
-  return gulp.src('README.md')
-    .pipe(markdown())
+  return gulp.src('src/index.html')
+    // Examples
+    .pipe(inject(gulp.src('src/examples/**/index.html').pipe(markdown()), {
+      starttag : '<!-- inject:examples -->',
+      transform : function (filePath, file) {
+        // return file contents as string
+        return '<li><a href="' + file.relative + '">' + file.relative + '</a></li>\n';
+      }
+    }))
+    // Documentation
+    .pipe(inject(gulp.src('README.md').pipe(markdown()), {
+      starttag : '<!-- inject:docs -->',
+      transform : function (filePath, file) {
+        // return file contents as string
+        return file.contents.toString('utf8');
+      }
+    }))
     .pipe(gulp.dest(outDir));
 }
 
