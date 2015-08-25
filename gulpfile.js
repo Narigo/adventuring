@@ -24,6 +24,7 @@ gulp.task('deploy', ['build:examples'], deployGhPages);
 gulp.task('default', ['build:examples']);
 
 var outDir = 'out';
+var ghPagesDir = '.publish';
 
 function copyAssets() {
   return gulp.src(['src/examples/**/*', '!src/examples/index.html', '!src/examples/**/*.scss', '!src/examples/**/*.js'])
@@ -90,9 +91,11 @@ function buildIndexFile(cb) {
 
 function deployGhPages() {
   return gulp.src(outDir + '/**')
-    .pipe(ghPages());
+    .pipe(ghPages({
+      cacheDir : ghPagesDir
+    }));
 }
 
 function cleanOutDir(cb) {
-  del([outDir, '.publish'], cb);
+  del([outDir, ghPagesDir], cb);
 }
