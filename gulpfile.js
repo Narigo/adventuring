@@ -85,7 +85,7 @@ function buildIndexFile(cb) {
     .pipe(gulp.dest(outDir));
 
   function nameFromPath(relativePath) {
-    return relativePath.substring(0, relativePath.indexOf('/'));
+    return relativePath.substring(0, relativePath.indexOf('/')).replace(/-/g, ' ');
   }
 }
 
