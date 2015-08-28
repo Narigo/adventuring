@@ -85,7 +85,10 @@ function buildIndexFile(cb) {
     .pipe(gulp.dest(outDir));
 
   function nameFromPath(relativePath) {
-    return relativePath.substring(0, relativePath.indexOf('/')).replace(/-/g, ' ');
+    return relativePath.substring(0, relativePath.indexOf('/')).replace(/-/g, ' ').replace(/\b(\w)(\w+)\b/g,
+      function (match, firstLetter, word) {
+        return firstLetter.toUpperCase() + word;
+      });
   }
 }
 
