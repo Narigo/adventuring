@@ -63,7 +63,7 @@ function compileScripts(cb) {
     });
 }
 
-function buildIndexFile(cb) {
+function buildIndexFile() {
   return gulp.src('src/index.html')
     // Examples
     .pipe(inject(gulp.src('src/examples/**/index.html').pipe(markdown()), {
