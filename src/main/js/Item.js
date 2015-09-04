@@ -30,13 +30,13 @@ export default class Item extends EventEmitter {
   }
 
   on(event, funcOrObject) {
-    var otherItem, otherItemId;
+    let otherItem, otherItemId;
 
     if (event === 'use') {
       for (otherItemId in funcOrObject) {
         if (funcOrObject.hasOwnProperty(otherItemId)) {
           otherItem = adventure.items[otherItemId];
-          var useObj = getUse(this, otherItem) || getUse(otherItem, this);
+          let useObj = getUse(this, otherItem) || getUse(otherItem, this);
           if (!!useObj) {
             throw new Error('no second use allowed on item ' + newItem);
           }
@@ -82,8 +82,8 @@ export default class Item extends EventEmitter {
 }
 
 function getUse(a, b) {
-  var useFn;
-  var uses = a.handlers['use'];
+  let useFn;
+  let uses = a.handlers['use'];
   if (uses) {
     useFn = uses[b.id];
   }

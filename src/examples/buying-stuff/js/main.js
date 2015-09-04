@@ -2,6 +2,7 @@ import Adventure from '../../../main/js/Adventure'
 import Scene from '../../../main/js/Scene'
 import Inventory from '../../../main/js/Inventory'
 import Dialog from '../../../main/js/Dialog'
+import HtmlElement from '../../../main/js/HtmlElement'
 import { default as Item, setItemInUse, getItemInUse, unsetItemInUse } from '../../../main/js/Item'
 import UsableItem from './UsableItem'
 import config from './config'
@@ -22,11 +23,11 @@ adventure.on('change-scene', (data) => {
 });
 
 inventory.on('add', (item) => {
-  item.$element.parentNode.removeChild(item.$element);
-  item.$element.removeEventListener('click');
-  $inventory.appendChild(item.$element);
+  item.$element.$element.parentNode.removeChild(item.$element.$element);
+  item.$element.$element.removeEventListener('click');
+  $inventory.appendChild(item.$element.$element);
 
-  item.$element.addEventListener('click', useItem(item));
+  item.$element.$element.addEventListener('click', useItem(item));
 
   function useItem(item) {
     return (e) => {
@@ -46,7 +47,7 @@ inventory.on('add', (item) => {
 });
 
 inventory.on('remove', (item) => {
-  $inventory.removeChild(item.$element);
+  $inventory.removeChild(item.$element.$element);
 });
 
 document.addEventListener('click', removeUsing);
@@ -55,13 +56,13 @@ let outsideShop = new Scene('outside-shop');
 let insideShop = new Scene('inside-shop');
 
 let $money = document.getElementById('money');
-let moneyItem = new Item('money', $money);
+let moneyItem = new Item('money', new HtmlElement($money));
 let $lessMoney = document.getElementById('lessMoney');
-let lessMoney = new Item('lessMoney', $lessMoney);
+let lessMoney = new Item('lessMoney', new HtmlElement($lessMoney));
 $money.addEventListener('click', pickUpOrUse(moneyItem));
 
 let $pen = document.getElementById('pen');
-let pen = new UsableItem('pen', $pen);
+let pen = new UsableItem('pen', new HtmlElement($pen));
 
 pen.on('click', () => {
   console.log('clicked on pen, open dialog');
@@ -94,7 +95,7 @@ $doorOut.addEventListener('click', () => {
 adventure.setScene(outsideShop);
 
 function pickUpOrUse(item) {
-  var clickFn = (e) => {
+  let clickFn = (e) => {
     e.stopPropagation();
     e.preventDefault();
     console.log('clicked on ' + item.id);
@@ -105,7 +106,7 @@ function pickUpOrUse(item) {
     } else {
       console.log('picking up ' + item.id);
       inventory.add(item);
-      item.$element.removeEventListener('click', clickFn);
+      item.$element.$element.removeEventListener('click', clickFn);
     }
   };
 

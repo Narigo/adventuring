@@ -11,7 +11,7 @@ function useCurrentItemOn(item) {
 export default class UsableItem extends Item {
   constructor(id, $element) {
     super(id, $element);
-    $element.addEventListener('click', (e) => {
+    $element.$element.addEventListener('click', (e) => {
       useCurrentItemOn(this);
       this.emit('click', e);
     });
