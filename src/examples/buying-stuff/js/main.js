@@ -62,7 +62,7 @@ let lessMoney = new Item('lessMoney', new HtmlElement($lessMoney));
 $money.addEventListener('click', pickUpOrUse(moneyItem));
 
 let $pen = document.getElementById('pen');
-let pen = new UsableItem('pen', new HtmlElement($pen));
+let pen = new UsableItem('pen', $pen);
 
 pen.on('click', () => {
   console.log('clicked on pen, open dialog');
