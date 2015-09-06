@@ -57,9 +57,9 @@ let insideShop = new Scene('inside-shop');
 
 let $money = document.getElementById('money');
 let moneyItem = new Item('money', new HtmlElement($money));
-let $lessMoney = document.getElementById('lessMoney');
-let lessMoney = new Item('lessMoney', new HtmlElement($lessMoney));
 $money.addEventListener('click', pickUpOrUse(moneyItem));
+
+let lessMoney = new Item('lessMoney', new HtmlElement(document.getElementById('lessMoney')));
 
 let $pen = document.getElementById('pen');
 let pen = new UsableItem('pen', $pen);
@@ -95,7 +95,7 @@ $doorOut.addEventListener('click', () => {
 adventure.setScene(outsideShop);
 
 function pickUpOrUse(item) {
-  let clickFn = (e) => {
+  return (e) => {
     e.stopPropagation();
     e.preventDefault();
     console.log('clicked on ' + item.id);
@@ -109,8 +109,6 @@ function pickUpOrUse(item) {
       item.$element.$element.removeEventListener('click', clickFn);
     }
   };
-
-  return clickFn;
 }
 
 function removeUsing(e) {
@@ -118,7 +116,6 @@ function removeUsing(e) {
   e.stopPropagation();
   let itemInUse = getItemInUse();
   if (itemInUse !== null) {
-    console.log('stop using ' + itemInUse.id);
     unsetItemInUse();
   }
 }
