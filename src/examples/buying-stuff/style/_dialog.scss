@@ -3,9 +3,9 @@
   left: 0;
   right: 10%;
   top: 0;
-  bottom: 0;
   padding: 25px;
   text-align: center;
+  z-index: 10;
 
   color: $dialog-default-color;
   text-shadow: 2px 0 0 $dialog-outline-color,
