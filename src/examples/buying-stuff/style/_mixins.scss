@@ -65,13 +65,14 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
 }
 
-@mixin outline($color) {
-  text-shadow: 2px 0 0 $color,
-              -2px 0 0 $color,
-              0 2px 0 $color,
-              0 -2px 0 $color,
-              1px 1px $color,
-              -1px -1px 0 $color,
-              1px -1px 0 $color,
-              -1px 1px 0 $color;
+@mixin outline($text-color, $outline-color) {
+  color: $text-color;
+  text-shadow: 2px 0 0 $outline-color,
+              -2px 0 0 $outline-color,
+              0 2px 0 $outline-color,
+              0 -2px 0 $outline-color,
+              1px 1px $outline-color,
+              -1px -1px 0 $outline-color,
+              1px -1px 0 $outline-color,
+              -1px 1px 0 $outline-color;
 }

@@ -7,6 +7,5 @@
   text-align: center;
   z-index: 10;
 
-  color: $dialog-default-color;
-  @include outline($dialog-outline-color);
+  @include outline($dialog-default-color, $dialog-outline-color);
 }
