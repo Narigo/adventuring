@@ -44,9 +44,9 @@ html, body {
   left: 0;
   right: 10%;
   top: 0;
-  bottom: 0;
   padding: 25px;
   text-align: center;
+  z-index: 10;
   color: #ffffff;
   text-shadow: 2px 0 0 #000000, -2px 0 0 #000000, 0 2px 0 #000000, 0 -2px 0 #000000, 1px 1px #000000, -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000; }
 

@@ -320,6 +320,10 @@ var _mainJsItem = require('../../../main/js/Item');
 
 var _mainJsItem2 = _interopRequireDefault(_mainJsItem);
 
+var _mainJsHtmlElement = require('../../../main/js/HtmlElement');
+
+var _mainJsHtmlElement2 = _interopRequireDefault(_mainJsHtmlElement);
+
 function useCurrentItemOn(item) {
   console.log('UsableItem.useCurrentItemOn: clicked on ' + item.id);
   var itemInUse = (0, _mainJsItem.getItemInUse)();
@@ -334,7 +338,7 @@ var UsableItem = (function (_Item) {
 
     _classCallCheck(this, UsableItem);
 
-    _get(Object.getPrototypeOf(UsableItem.prototype), 'constructor', this).call(this, id, $element);
+    _get(Object.getPrototypeOf(UsableItem.prototype), 'constructor', this).call(this, id, new _mainJsHtmlElement2['default']($element));
     $element.addEventListener('click', function (e) {
       useCurrentItemOn(_this);
       _this.emit('click', e);
@@ -349,7 +353,7 @@ var UsableItem = (function (_Item) {
 exports['default'] = UsableItem;
 module.exports = exports['default'];
 
-},{"../../../main/js/Item":9}],3:[function(require,module,exports){
+},{"../../../main/js/HtmlElement":8,"../../../main/js/Item":10}],3:[function(require,module,exports){
 module.exports={
   "dialog": {
     "minTime": 1000,
@@ -376,6 +380,10 @@ var _mainJsInventory2 = _interopRequireDefault(_mainJsInventory);
 var _mainJsDialog = require('../../../main/js/Dialog');
 
 var _mainJsDialog2 = _interopRequireDefault(_mainJsDialog);
+
+var _mainJsHtmlElement = require('../../../main/js/HtmlElement');
+
+var _mainJsHtmlElement2 = _interopRequireDefault(_mainJsHtmlElement);
 
 var _mainJsItem = require('../../../main/js/Item');
 
@@ -405,11 +413,11 @@ adventure.on('change-scene', function (data) {
 });
 
 inventory.on('add', function (item) {
-  item.$element.parentNode.removeChild(item.$element);
-  item.$element.removeEventListener('click');
-  $inventory.appendChild(item.$element);
+  item.$element.$element.parentNode.removeChild(item.$element.$element);
+  item.$element.$element.removeEventListener('click');
+  $inventory.appendChild(item.$element.$element);
 
-  item.$element.addEventListener('click', useItem(item));
+  item.$element.$element.addEventListener('click', useItem(item));
 
   function useItem(item) {
     return function (e) {
@@ -429,7 +437,7 @@ inventory.on('add', function (item) {
 });
 
 inventory.on('remove', function (item) {
-  $inventory.removeChild(item.$element);
+  $inventory.removeChild(item.$element.$element);
 });
 
 document.addEventListener('click', removeUsing);
@@ -438,10 +446,10 @@ var outsideShop = new _mainJsScene2['default']('outside-shop');
 var insideShop = new _mainJsScene2['default']('inside-shop');
 
 var $money = document.getElementById('money');
-var moneyItem = new _mainJsItem2['default']('money', $money);
-var $lessMoney = document.getElementById('lessMoney');
-var lessMoney = new _mainJsItem2['default']('lessMoney', $lessMoney);
+var moneyItem = new _mainJsItem2['default']('money', new _mainJsHtmlElement2['default']($money));
 $money.addEventListener('click', pickUpOrUse(moneyItem));
+
+var lessMoney = new _mainJsItem2['default']('lessMoney', new _mainJsHtmlElement2['default'](document.getElementById('lessMoney')));
 
 var $pen = document.getElementById('pen');
 var _pen = new _UsableItem2['default']('pen', $pen);
@@ -477,7 +485,7 @@ $doorOut.addEventListener('click', function () {
 adventure.setScene(outsideShop);
 
 function pickUpOrUse(item) {
-  var clickFn = function clickFn(e) {
+  return function (e) {
     e.stopPropagation();
     e.preventDefault();
     console.log('clicked on ' + item.id);
@@ -488,11 +496,9 @@ function pickUpOrUse(item) {
     } else {
       console.log('picking up ' + item.id);
       inventory.add(item);
-      item.$element.removeEventListener('click', clickFn);
+      item.$element.$element.removeEventListener('click', clickFn);
     }
   };
-
-  return clickFn;
 }
 
 function removeUsing(e) {
@@ -500,7 +506,6 @@ function removeUsing(e) {
   e.stopPropagation();
   var itemInUse = (0, _mainJsItem.getItemInUse)();
   if (itemInUse !== null) {
-    console.log('stop using ' + itemInUse.id);
     (0, _mainJsItem.unsetItemInUse)();
   }
 }
@@ -520,7 +525,7 @@ function dialogTime(text) {
   return Math.max(_config2['default'].dialog.minTime, text.length * _config2['default'].dialog.timePerCharacter);
 }
 
-},{"../../../main/js/Adventure":5,"../../../main/js/Dialog":6,"../../../main/js/Inventory":8,"../../../main/js/Item":9,"../../../main/js/Scene":10,"./UsableItem":2,"./config":3}],5:[function(require,module,exports){
+},{"../../../main/js/Adventure":5,"../../../main/js/Dialog":6,"../../../main/js/HtmlElement":8,"../../../main/js/Inventory":9,"../../../main/js/Item":10,"../../../main/js/Scene":11,"./UsableItem":2,"./config":3}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -585,7 +590,7 @@ var Adventure = (function (_EventEmitter) {
 exports['default'] = Adventure;
 module.exports = exports['default'];
 
-},{"./Scene.js":10,"events":1}],6:[function(require,module,exports){
+},{"./Scene.js":11,"events":1}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -674,6 +679,62 @@ module.exports = exports["default"];
 },{}],8:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+var _Element2 = require('./Element');
+
+var _Element3 = _interopRequireDefault(_Element2);
+
+var HtmlElement = (function (_Element) {
+  function HtmlElement($element) {
+    _classCallCheck(this, HtmlElement);
+
+    _get(Object.getPrototypeOf(HtmlElement.prototype), 'constructor', this).call(this, $element);
+    if (!($element instanceof HTMLElement)) {
+      throw new Error('need HTML element to construct an element');
+    }
+  }
+
+  _inherits(HtmlElement, _Element);
+
+  _createClass(HtmlElement, [{
+    key: 'highlight',
+    value: function highlight() {
+      return this.$element.classList.add('highlight');
+    }
+  }, {
+    key: 'isHighlighted',
+    value: function isHighlighted() {
+      return this.$element.classList.contains('highlight');
+    }
+  }, {
+    key: 'stopHighlight',
+    value: function stopHighlight() {
+      return this.$element.classList.remove('highlight');
+    }
+  }]);
+
+  return HtmlElement;
+})(_Element3['default']);
+
+exports['default'] = HtmlElement;
+module.exports = exports['default'];
+
+},{"./Element":7}],9:[function(require,module,exports){
+'use strict';
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -727,7 +788,7 @@ var Inventory = (function (_EventEmitter) {
 
 module.exports = Inventory;
 
-},{"events":1}],9:[function(require,module,exports){
+},{"events":1}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -792,7 +853,8 @@ var Item = (function (_EventEmitter) {
   }, {
     key: 'on',
     value: function on(event, funcOrObject) {
-      var otherItem, otherItemId;
+      var otherItem = undefined,
+          otherItemId = undefined;
 
       if (event === 'use') {
         for (otherItemId in funcOrObject) {
@@ -850,7 +912,7 @@ var Item = (function (_EventEmitter) {
 exports['default'] = Item;
 
 function getUse(a, b) {
-  var useFn;
+  var useFn = undefined;
   var uses = a.handlers['use'];
   if (uses) {
     useFn = uses[b.id];
@@ -884,7 +946,7 @@ function unsetItemInUse() {
   itemInUse = null;
 }
 
-},{"./Element":7,"events":1}],10:[function(require,module,exports){
+},{"./Element":7,"events":1}],11:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
