@@ -8,12 +8,5 @@
   z-index: 10;
 
   color: $dialog-default-color;
-  text-shadow: 2px 0 0 $dialog-outline-color,
-              -2px 0 0 $dialog-outline-color,
-               0 2px 0 $dialog-outline-color,
-              0 -2px 0 $dialog-outline-color,
-               1px 1px $dialog-outline-color,
-           -1px -1px 0 $dialog-outline-color,
-            1px -1px 0 $dialog-outline-color,
-            -1px 1px 0 $dialog-outline-color;
+  @include outline($dialog-outline-color);
 }
