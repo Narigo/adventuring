@@ -6,6 +6,7 @@
   "scripts": {
     "clean": "gulp clean",
     "build:examples": "gulp build:examples",
+    "deploy": "gulp deploy",
     "test": "karma start --single-run",
     "test:watch": "karma start"
   },
